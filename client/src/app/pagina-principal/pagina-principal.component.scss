@@ -1,0 +1,114 @@
+$cor-secundaria: #F1F1F1;
+$cor-outline: #DEDEDE;
+$arredondamento-p: 5px;
+$cor-principal: #FFFFFF;
+
+input:focus {
+    outline: 1px solid rgb(235, 235, 235);
+}
+
+#painel-cabecalho {
+    display: flex;
+    align-items: center;
+    gap:25px;
+    padding:25px;
+    font-size: 20px;
+}
+
+.barra-pesquisa {
+    width: 500px;
+    padding:10px;
+    border: none;
+    background-color: $cor-secundaria;
+    border-radius: $arredondamento-p;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap:60px;
+    overflow:hidden;
+    padding: 100px;
+
+}
+
+.showcase-inicio {
+    display: flex;
+    position: relative;
+    font-size: 64px;
+    width: 100vw;
+    overflow: hidden;
+    gap: 60px;
+}
+
+.showcase-texto {
+    min-width: 500px;
+}
+
+.texto-inicio-sub {
+    font-size: 36px;
+}
+
+#cards-showcase {
+    display: flex;
+    position: relative;
+    gap: 35px;
+    overflow: hidden;
+    width: fit-content;
+
+    // padding-left: 35px;
+    // padding-right: 35px;
+
+}
+
+#cards-showcase::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    background: linear-gradient(to right, $cor-principal, rgba(0,0,0,0));
+    width: 100px;
+    height: 100%;
+}
+
+#cards-showcase::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    background: linear-gradient(to left, $cor-principal, rgba(0,0,0,0));
+    width: 100px;
+    height: 100%;
+}
+
+.explorador-produtos {
+    display:flex;
+    flex-wrap: wrap;
+    gap:20px
+}
+
+.card-showcase {
+    min-width: 450px;
+    height: 450px;
+
+    border-radius: 15px;
+    border: 1px solid $cor-outline;
+}
+
+.card-produto {
+    display: flex;
+
+    flex-direction: column;
+    justify-content: space-between;
+    width: 275px;
+    height: 305px;
+    border-radius: 10px;
+    border: 1px solid $cor-outline;
+    padding:15px
+} 
+
+.header-produto, .footer-produto {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+}

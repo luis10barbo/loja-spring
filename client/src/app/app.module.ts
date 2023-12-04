@@ -5,19 +5,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServicoProduto } from './services/servico-produto.service';
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
+import { PaginaProdutoComponent } from './pagina-produto/pagina-produto.component';
+
+import { RouterModule, Routes } from '@angular/router';
+import { PaginaPrincipalComponent } from './pagina-principal/pagina-principal.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PaginaProdutoComponent,
+    PaginaPrincipalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     ServicoProduto, HttpClient
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
