@@ -1,1 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+$cor-principal: #0CC5FF;
+$cor-principal-high: #3ad1ff;
+$cor-em-principal: white;
+
+$tempo-transicao: 75ms;
+
 /* You can add global styles to this file, and also import other style files */
+body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
+}
+
+app-root {
+    display:flex;
+    flex-direction: column;
+    gap:60px;
+}
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+p {
+    margin: 0;
+}
+
+button {
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+    padding: 10px;
+    background-color: $cor-principal;
+    color:$cor-em-principal;
+
+    transition: $tempo-transicao;
+}
+
+button:hover {
+    background-color: $cor-principal-high;
+}
+
+.cor-complementar {
+    color: $cor-principal;
+}
