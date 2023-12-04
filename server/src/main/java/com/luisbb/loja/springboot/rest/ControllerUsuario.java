@@ -5,7 +5,7 @@ import com.luisbb.loja.springboot.jpa.repositorios.RepositorioUsuario;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/usuarios")
 public class ControllerUsuario {
     private final RepositorioUsuario repositorioUsuario;
     public ControllerUsuario(RepositorioUsuario repositorioUsuario) {
