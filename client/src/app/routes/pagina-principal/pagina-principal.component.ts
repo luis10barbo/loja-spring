@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Produto } from '../models/produto';
-import { ServicoProduto } from '../services/servico-produto.service';
+import { Produto } from '../../models/produto';
+import { ServicoProduto } from '../../services/servico-produto.service';
 
 @Component({
   selector: 'app-pagina-principal',

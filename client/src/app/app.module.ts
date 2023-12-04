@@ -5,10 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServicoProduto } from './services/servico-produto.service';
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
-import { PaginaProdutoComponent } from './pagina-produto/pagina-produto.component';
+import { PaginaProdutoComponent } from './routes/pagina-produto/pagina-produto.component';
 
 import { RouterModule, Routes } from '@angular/router';
-import { PaginaPrincipalComponent } from './pagina-principal/pagina-principal.component';
+import { PaginaPrincipalComponent } from './routes/pagina-principal/pagina-principal.component';
 
 @NgModule({
   declarations: [
