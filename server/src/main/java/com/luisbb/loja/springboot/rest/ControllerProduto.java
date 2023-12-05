@@ -4,6 +4,8 @@ import com.luisbb.loja.springboot.jpa.entidades.Produto;
 import com.luisbb.loja.springboot.jpa.repositorios.RepositorioProduto;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/produtos")
 public class ControllerProduto {
@@ -14,6 +16,11 @@ public class ControllerProduto {
     @GetMapping("/all")
     public Iterable<Produto> adquirirTodos() {
         return repositorioProduto.findAll();
+    }
+
+    @GetMapping
+    public Optional<Produto> adquirir(@RequestParam long id) {
+        return repositorioProduto.findById(id);
     }
 
     @PostMapping
