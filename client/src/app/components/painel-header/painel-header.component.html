@@ -3,4 +3,8 @@
     <a routerLink="/produtos">Produtos</a>
     <a routerLink="/contato">Contato</a>
     <input class="barra-pesquisa" placeholder="Pesquisar Produto...">
+    <div class="esquerda-header">
+        <a *ngIf="!usuario" routerLink="/entrar">Entrar</a>
+        <a *ngIf="usuario" routerLink="/sair">Sair</a>
+    </div>
 </header>

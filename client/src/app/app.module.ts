@@ -9,13 +9,16 @@ import { PaginaProdutoComponent } from './routes/pagina-produto/pagina-produto.c
 
 import { PaginaPrincipalComponent } from './routes/pagina-principal/pagina-principal.component';
 import { PainelHeaderComponent } from './components/painel-header/painel-header.component';
+import { PaginaLoginComponent } from './routes/pagina-login/pagina-login.component';
+import { UsuarioService } from './services/usuario.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     PaginaProdutoComponent,
     PaginaPrincipalComponent,
-    PainelHeaderComponent
+    PainelHeaderComponent,
+    PaginaLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +26,7 @@ import { PainelHeaderComponent } from './components/painel-header/painel-header.
     HttpClientModule,
   ],
   providers: [
-    ServicoProduto, HttpClient
+    ServicoProduto, UsuarioService, HttpClient
   ],
   bootstrap: [AppComponent],
   exports: [

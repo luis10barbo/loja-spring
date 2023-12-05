@@ -1,0 +1,27 @@
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap:10px;
+    width: 100%;
+    height: 100%;
+    padding: 100px;
+}
+
+.holder-login {
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+    font-size: 20px;
+}
+
+.input-main {
+    min-width: 350px;
+    font-size: 16px;
+}
+
+.texto-toggle-tipo {
+    font-size: 16px;
+}

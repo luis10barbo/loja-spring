@@ -5,11 +5,19 @@ $cor-principal: #0CC5FF;
 $cor-principal-high: #3ad1ff;
 $cor-em-principal: white;
 $cor-outline: #DEDEDE;
+$cor-complementar: #F1F1F1;
+$cor-em-complementar: #000000;
+
 
 
 $tempo-transicao: 75ms;
 
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+    height: 100%;
+}
+
 body {
     margin: 0;
     font-family: "Inter", sans-serif;
@@ -19,7 +27,14 @@ app-root {
     display:flex;
     flex-direction: column;
     gap:60px;
+    height: 100%;
 }
+
+app-root > * {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+} 
 
 *, *::after, *::before {
     box-sizing: border-box;
@@ -44,6 +59,11 @@ button:hover {
     background-color: $cor-principal-high;
 }
 
+button.neutro {
+    background-color: $cor-complementar;
+    color: $cor-em-complementar;
+}
+
 .cor-complementar {
     color: $cor-principal;
 }
@@ -62,4 +82,16 @@ a:hover {
 img {
     object-fit: cover;
     padding:10px;
+}
+
+input {
+    border-radius: 5px;
+    padding: 10px;
+    border: none;
+    background-color: $cor-complementar;
+    outline: none;
+}
+
+painel-header {
+    display:contents;
 }
