@@ -11,6 +11,7 @@ import lombok.Setter;
 public class Usuario {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idUsuario;
+    @Column(unique = true)
     private String apelido;
 
     @JsonIgnore
@@ -20,6 +21,6 @@ public class Usuario {
     @JsonIgnore
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private Carrinho carrinho;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.EAGER)
+    private Carrinho carrinho = new Carrinho(this);
 }

@@ -1,6 +1,8 @@
 package com.luisbb.loja.springboot.rest;
 
+import com.luisbb.loja.springboot.jpa.entidades.Carrinho;
 import com.luisbb.loja.springboot.jpa.entidades.Usuario;
+import com.luisbb.loja.springboot.jpa.repositorios.RepositorioCarrinho;
 import com.luisbb.loja.springboot.jpa.repositorios.RepositorioUsuario;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,8 +20,11 @@ import java.util.Optional;
 public class ControllerUsuario {
     private static final String NOME_COOKIE = "idUsuario";
     private final RepositorioUsuario repositorioUsuario;
-    public ControllerUsuario(RepositorioUsuario repositorioUsuario) {
+    private final RepositorioCarrinho repositorioCarrinho;
+
+    public ControllerUsuario(RepositorioUsuario repositorioUsuario, RepositorioCarrinho repositorioCarrinho) {
         this.repositorioUsuario = repositorioUsuario;
+        this.repositorioCarrinho = repositorioCarrinho;
     }
 
     @GetMapping("/all")
@@ -62,6 +67,10 @@ public class ControllerUsuario {
         usuario.setSaltSenha(BCrypt.gensalt(10));
         usuario.setHashSenha(BCrypt.hashpw(corpoLogin.senha, usuario.getSaltSenha()));
         usuario = repositorioUsuario.save(usuario);
+
+//        Carrinho carrinho = new Carrinho();
+//        carrinho.setUsuario(usuario);
+//        repositorioCarrinho.save(carrinho);
 
         resposta.addCookie(criarCookie(usuario));
         return Optional.of(usuario);
