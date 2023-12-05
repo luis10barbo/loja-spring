@@ -4,4 +4,5 @@ export interface Produto {
     descricao: String;
     preco: number;
     avaliacao: number;
+    imagem: String;
 }

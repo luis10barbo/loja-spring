@@ -7,14 +7,15 @@ import { ServicoProduto } from './services/servico-produto.service';
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
 import { PaginaProdutoComponent } from './routes/pagina-produto/pagina-produto.component';
 
-import { RouterModule, Routes } from '@angular/router';
 import { PaginaPrincipalComponent } from './routes/pagina-principal/pagina-principal.component';
+import { PainelHeaderComponent } from './components/painel-header/painel-header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PaginaProdutoComponent,
-    PaginaPrincipalComponent
+    PaginaPrincipalComponent,
+    PainelHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -25,5 +26,8 @@ import { PaginaPrincipalComponent } from './routes/pagina-principal/pagina-princ
     ServicoProduto, HttpClient
   ],
   bootstrap: [AppComponent],
+  exports: [
+    PainelHeaderComponent
+  ]
 })
 export class AppModule { }

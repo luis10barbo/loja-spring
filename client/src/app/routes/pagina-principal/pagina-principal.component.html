@@ -1,9 +1,4 @@
-<header id="painel-cabecalho">
-    <a>Inicio</a>
-    <a>Produtos</a>
-    <a>Contato</a>
-    <input class="barra-pesquisa" placeholder="Pesquisar Produto...">
-  </header>
+<painel-header></painel-header>
   <main>
     <section class="showcase-inicio">
       <div class="showcase-texto">
@@ -37,13 +32,17 @@
             {{produto.avaliacao}}
           </p>
         </header>  
+        <img class="imagem-produto" *ngIf="produto.imagem" [src]="produto.imagem">
         <footer class="footer-produto">
           <p class="">
             R$ {{produto.preco}}
           </p>
-          <button>
-            Expandir
-          </button>
+
+          <a *ngIf="produto.id" routerLink="/produto" [queryParams]="{id:produto.id}">
+            <button >
+              Expandir
+            </button>
+          </a>
         </footer>
       </div>
     </section>

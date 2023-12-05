@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Produto } from '../../models/produto';
 import { ServicoProduto } from '../../services/servico-produto.service';
 
@@ -9,10 +9,10 @@ import { ServicoProduto } from '../../services/servico-produto.service';
 })
 export class PaginaPrincipalComponent {
   title = 'loja generica';
-  produtos: Produto[] = [{nome: "Produto Exemplo", avaliacao:4.3, preco:79.99, descricao: ""}];
+  produtos: Produto[] = [];
 
   constructor(private servicoProduto: ServicoProduto) {}
-
+  
   ngOnInit(): void {
     this.servicoProduto.adquirirTodos().subscribe(data => {
       this.produtos = data;

@@ -1,0 +1,26 @@
+@use "../../app.component.scss" as g;
+@use "../../../styles.scss" as p;
+input:focus {
+    outline: 1px solid rgb(235, 235, 235);
+}
+
+#painel-cabecalho {
+    display: flex;
+    align-items: center;
+    gap:25px;
+    padding:25px;
+    font-size: 20px;
+
+    position: sticky;
+    top: 0;
+    background-color: p.$cor-bg;
+    z-index: 10;
+}
+
+.barra-pesquisa {
+    width: 500px;
+    padding:10px;
+    border: none;
+    background-color: g.$cor-secundaria;
+    border-radius: g.$arredondamento-p;
+}

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
 
+$cor-bg: #FFFFFF;
 $cor-principal: #0CC5FF;
 $cor-principal-high: #3ad1ff;
 $cor-em-principal: white;
@@ -42,5 +43,16 @@ button:hover {
 }
 
 .cor-complementar {
+    color: $cor-principal;
+}
+
+a {
+    text-decoration: none;
+    color:inherit;
+    outline: 0;
+    transition: $tempo-transicao;
+}
+
+a:hover {
     color: $cor-principal;
 }
