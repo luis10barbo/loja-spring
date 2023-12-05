@@ -20,12 +20,7 @@ public class Produto {
     private String nome;
     private String descricao;
     private double preco;
+    private String imagem;
 
     private double avaliacao = 0.0;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "produtos")
-    private Set<Carrinho> carrinhos = new HashSet<>();
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "produtos")
-    private Set<Ordem> ordens = new HashSet<>();
 }
