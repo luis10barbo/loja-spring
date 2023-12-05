@@ -21,10 +21,14 @@ main {
 }
 
 .showcase-texto {
+    display: flex;
+    flex-direction: column;
     min-width: 500px;
 }
 
 .texto-inicio-sub {
+    margin-top: auto;
+    margin-bottom: auto;
     font-size: 36px;
 }
 

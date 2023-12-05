@@ -58,3 +58,8 @@ a {
 a:hover {
     color: $cor-principal;
 }
+
+img {
+    object-fit: cover;
+    padding:10px;
+}
