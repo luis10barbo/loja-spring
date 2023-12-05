@@ -12,4 +12,8 @@ export class ServicoProduto {
   public adquirirTodos(): Observable<Produto[]> {
     return this.http.get<Produto[]>(this.url + "/all");
   }
+
+  public adquirir(id:number): Observable<Produto> {
+    return this.http.get<Produto>(`${this.url}?id=${id}`);
+  }
 }

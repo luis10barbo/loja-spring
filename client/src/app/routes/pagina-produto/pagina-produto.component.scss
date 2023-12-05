@@ -1,0 +1,52 @@
+@use "../../../styles.scss" as p;
+main {
+    display:flex;
+    flex-direction: column;
+    padding: 50px;
+    gap: 60px;
+}
+
+#seccao-principal {
+    display:flex;
+    justify-content: space-evenly;
+    gap:40px;
+}
+
+
+
+.card-imagem {
+    border: 1px solid p.$cor-outline;
+    height: 650px;
+    aspect-ratio: 1;
+    border-radius: 20px;
+}
+
+.imagem-produto {
+    height: 100%;
+    padding: 30px;
+}
+
+#info-principal {
+    display:flex;
+    flex-direction: column;
+    gap:40px;
+    font-size: 36px;
+    font-weight: lighter;
+}
+
+#info-principal-header {
+    display:flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+#descricao-produto {
+    font-size: 20px;
+}
+
+#info-principal-footer {
+    display: flex;
+    gap:15px;
+    margin-top: auto;
+    flex-direction: row-reverse;
+}

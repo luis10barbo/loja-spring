@@ -1,1 +1,21 @@
 <painel-header></painel-header>
+<main>
+    <section id="seccao-principal" *ngIf="produto">
+        <div class="card-imagem">
+            <img *ngIf="produto.imagem != null" class="imagem-produto" [src]="produto.imagem" [alt]="produto.imagem">
+        </div>
+        <div id="info-principal" >
+            <header id="info-principal-header">
+                <p id="titulo-produto">{{produto.nome}}</p>
+                <p id="preco-produto">R$ {{produto.preco}}</p>
+            </header>
+            <p id="descricao-produto">{{produto.descricao}}</p>
+            
+            <footer id="info-principal-footer">
+                <button>Adicionar ao Carrinho</button>
+                <button>Observar</button>
+            </footer>
+        </div>
+    </section>
+    Comentarios
+</main>
