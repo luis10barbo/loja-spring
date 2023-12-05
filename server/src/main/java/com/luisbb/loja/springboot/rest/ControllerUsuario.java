@@ -67,7 +67,7 @@ public class ControllerUsuario {
         return Optional.of(usuario);
     }
 
-    @PostMapping("/logar")
+    @PostMapping("/entrar")
     public Optional<Usuario> logar(HttpServletRequest request, HttpServletResponse resposta, @RequestBody CorpoLogin corpoLogin) {
         Optional<Usuario> optUsuario = repositorioUsuario.findByApelido(corpoLogin.getApelido());
         if (optUsuario.isEmpty()) {
