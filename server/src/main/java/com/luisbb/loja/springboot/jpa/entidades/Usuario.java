@@ -11,8 +11,8 @@ public class Usuario {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idUsuario;
     private String apelido;
-    private String hash_senha;
-    private String salt_senha;
+    private String hashSenha;
+    private String saltSenha;
     private String email;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
