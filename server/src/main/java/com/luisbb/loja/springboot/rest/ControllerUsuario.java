@@ -52,7 +52,7 @@ public class ControllerUsuario {
 
     @GetMapping("/eu")
     public Optional<Usuario> eu(HttpServletRequest request) {
-        return adquirirUsuario(request.getCookies());
+        return adquirirUsuario(repositorioUsuario, request.getCookies());
     }
 
     @PostMapping("/registrar")
@@ -100,10 +100,11 @@ public class ControllerUsuario {
         Cookie jwtTokenCookie = new Cookie(NOME_COOKIE, usuario.getIdUsuario().toString());
         jwtTokenCookie.setMaxAge(86400);
         jwtTokenCookie.setHttpOnly(true);
+        jwtTokenCookie.setPath("/");
         return jwtTokenCookie;
     }
 
-    private Optional<Usuario> adquirirUsuario(Cookie[] cookies) {
+    public static Optional<Usuario> adquirirUsuario(RepositorioUsuario repositorioUsuario, Cookie[] cookies) {
         if (cookies == null) return Optional.empty();
         Optional<String> optIdUsuario = Arrays.stream(cookies).filter(cookie -> cookie.getName().equals(NOME_COOKIE)).map(Cookie::getValue).findFirst();
         return optIdUsuario.flatMap(idUsuario -> repositorioUsuario.findById(Long.parseLong(idUsuario)));

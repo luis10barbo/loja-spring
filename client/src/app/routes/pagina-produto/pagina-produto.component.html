@@ -12,7 +12,8 @@
             <p id="descricao-produto">{{produto.descricao}}</p>
             
             <footer id="info-principal-footer">
-                <button>Adicionar ao Carrinho</button>
+                <button *ngIf="!estaEmCarrinho" (click)="adicionarProdutoCarrinho()">Adicionar ao Carrinho</button>
+                <button class="neutro" *ngIf="estaEmCarrinho" (click)="removerProdutoCarrinho()">Remover do Carrinho</button>
                 <button>Observar</button>
             </footer>
         </div>

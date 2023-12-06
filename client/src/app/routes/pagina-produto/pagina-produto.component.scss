@@ -16,14 +16,16 @@ main {
 
 .card-imagem {
     border: 1px solid p.$cor-outline;
-    height: 650px;
+    width: 650px;
     aspect-ratio: 1;
     border-radius: 20px;
 }
 
 .imagem-produto {
     height: 100%;
+    width: 100%;
     padding: 30px;
+    object-fit: contain;
 }
 
 #info-principal {

@@ -4,6 +4,7 @@
     <a routerLink="/contato">Contato</a>
     <input class="barra-pesquisa" placeholder="Pesquisar Produto...">
     <div class="esquerda-header">
+        <a>Carrinho({{usuario?.carrinho?.produtos?.length}})</a>
         <a *ngIf="!usuario" routerLink="/entrar">Entrar</a>
         <a *ngIf="usuario" routerLink="/sair">Sair</a>
     </div>

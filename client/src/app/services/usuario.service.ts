@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Usuario } from '../models/usuario';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { enviroment } from 'src/environment/environment';
 
 @Injectable({
@@ -9,11 +9,25 @@ import { enviroment } from 'src/environment/environment';
 })
 export class UsuarioService {
   url = enviroment.urlBackend + "/usuarios";
+  usuarioBS: BehaviorSubject<Usuario | undefined> = new BehaviorSubject<Usuario | undefined>(undefined);
+  usuario = this.usuarioBS.asObservable();
+  private subscription?: Subscription;
+  constructor(private httpClient: HttpClient) { 
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
 
-  constructor(private httpClient: HttpClient) { }
+    this.atualizarEu();
+  }
 
   public adquirirEu(): Observable<Usuario | undefined> {
-    return this.httpClient.get<Usuario | undefined>(this.url + "/eu", {withCredentials:true});
+    return this.usuario;
+  }
+
+  public atualizarEu() {
+    this.subscription = this.httpClient.get<Usuario | undefined>(this.url + "/eu", {withCredentials:true}).subscribe(data => {
+      this.usuarioBS.next(data);
+    });
   }
   
   public entrar(apelido: String, senha: String): Observable<Usuario | undefined> {
