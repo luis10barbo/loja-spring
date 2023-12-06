@@ -1,5 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Produto } from 'src/app/models/produto';
 import { Usuario } from 'src/app/models/usuario';
+import { CarrinhoService } from 'src/app/services/carrinho.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -9,8 +11,8 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class PainelHeaderComponent implements OnInit {
   usuario: Usuario | undefined;
-
-  constructor(private usuarioService: UsuarioService) {}
+  carrinhoAberto: boolean = false;
+  constructor(private usuarioService: UsuarioService, private carrinhoService: CarrinhoService) {}
   ngOnInit(): void {
     this.usuarioService.adquirirEu().subscribe(data => {
       this.usuario = data;
@@ -30,5 +32,31 @@ export class PainelHeaderComponent implements OnInit {
     } else {
       this.painelHeader.nativeElement.classList.remove("scrolled")
     }
+  }
+
+  toggleCarrinho() {
+    this.carrinhoAberto = !this.carrinhoAberto;
+  }
+
+  fecharCarrinho() {
+    this.carrinhoAberto = false;
+  }
+
+  removerDoCarrinho(produto: Produto) {
+    this.carrinhoService.removerDoCarrinho(produto).subscribe(res => {
+      if (!res) {
+        return;
+      }
+      this.usuarioService.atualizarEu();
+    });
+  }
+
+  limparCarrinho() {
+    this.carrinhoService.removerTodoCarrinho().subscribe(res => {
+      if (!res) {
+        return;
+      }
+      this.usuarioService.atualizarEu();
+    });
   }
 }

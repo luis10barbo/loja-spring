@@ -17,4 +17,8 @@ export class CarrinhoService {
   removerDoCarrinho(produto: Produto) {
     return this.httpClient.post<boolean>(this.url + "/remover", produto, {withCredentials:true});
   }
+
+  removerTodoCarrinho() {
+    return this.httpClient.post<boolean>(this.url + "/removerTodos", undefined, {withCredentials:true})
+  }
 }

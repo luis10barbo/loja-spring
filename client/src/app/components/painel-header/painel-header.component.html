@@ -3,9 +3,40 @@
     <a routerLink="/produtos">Produtos</a>
     <a routerLink="/contato">Contato</a>
     <input class="barra-pesquisa" placeholder="Pesquisar Produto...">
-    <div class="esquerda-header">
-        <a>Carrinho({{usuario?.carrinho?.produtos?.length}})</a>
+    <div class="direita-header">
+        <a (click)="toggleCarrinho()" >Carrinho ({{usuario?.carrinho?.produtos?.length}})</a>
         <a *ngIf="!usuario" routerLink="/entrar">Entrar</a>
         <a *ngIf="usuario" routerLink="/sair">Sair</a>
     </div>
 </header>
+<div [class]="'div-escurecer ' + (carrinhoAberto ? 'on' : '')"></div>
+<div id="popup-carrinho" [class]="'' + (carrinhoAberto ? 'on' : '')">
+    <div class="conteudo-popup">
+        <header id="header-popup">
+            <p id="popup-carrinho-titulo">Seu Carrinho</p>
+            <button class="neutro" (click)="toggleCarrinho()">Fechar</button>
+        </header>
+        <section *ngIf="usuario && usuario.carrinho" class="conteudo-carrinho">
+            <div *ngFor="let produto of usuario.carrinho.produtos; index as i;" class="card-carrinho">
+                <img [src]="produto.imagem" class="imagem-produto-carrinho">
+                <div class="texto-produto-carrinho">
+                    <p class="titulo-produto-carrinho">
+                        {{ produto.nome }}
+                    </p>
+                    <p class="descricao-produto-carrinho">
+                        {{ produto.descricao }}
+                    </p>
+                    <div class="container-botoes-carrinho">
+                        <button class="botao-produto-carrinho perigo" (click)="removerDoCarrinho(produto)">Remover</button>
+                        <a  routerLink="/produto" [queryParams]="{id: produto.id}" (click)="fecharCarrinho()">
+                            <button class="botao-produto-carrinho neutro">Abrir</button>
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        <button *ngIf="usuario && usuario.carrinho && usuario.carrinho.produtos && usuario.carrinho.produtos.length > 0" class="perigo" (click)="limparCarrinho()">Limpar Carrinho</button>
+
+    </div>
+</div>

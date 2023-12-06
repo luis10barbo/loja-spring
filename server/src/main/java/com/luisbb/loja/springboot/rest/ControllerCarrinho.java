@@ -55,4 +55,18 @@ public class ControllerCarrinho {
         repositorioCarrinho.save(carrinho);
         return true;
     }
+
+    @PostMapping("/removerTodos")
+    public boolean removerTodosProdutos(HttpServletRequest request) {
+        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioUsuario, request.getCookies());
+        if (optUsuario.isEmpty()) {
+            return false;
+        }
+        Usuario usuario = optUsuario.get();
+        Carrinho carrinho = usuario.getCarrinho();
+        carrinho.getProdutos().clear();
+
+        repositorioCarrinho.save(carrinho);
+        return true;
+    }
 }

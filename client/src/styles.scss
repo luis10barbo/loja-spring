@@ -6,7 +6,11 @@ $cor-principal-high: #3ad1ff;
 $cor-em-principal: white;
 $cor-outline: #DEDEDE;
 $cor-complementar: #F1F1F1;
+$cor-complementar-high: #e2e2e2;
 $cor-em-complementar: #000000;
+$cor-perigo: #FF3D00;
+$cor-perigo-high: #ff6a3d;
+$cor-em-perigo: #FFFFFF;
 
 
 
@@ -59,9 +63,24 @@ button:hover {
     background-color: $cor-principal-high;
 }
 
+button {
+    cursor: pointer;
+}
+
 button.neutro {
     background-color: $cor-complementar;
     color: $cor-em-complementar;
+}
+button.neutro:hover {
+    background-color: $cor-complementar-high;
+}
+
+button.perigo {
+    background-color: $cor-perigo;
+    color: $cor-em-perigo;
+}
+button.perigo:hover {
+    background-color: $cor-perigo-high;
 }
 
 .cor-complementar {
