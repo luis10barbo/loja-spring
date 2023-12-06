@@ -10,8 +10,10 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   styleUrls: ['./painel-header.component.scss']
 })
 export class PainelHeaderComponent implements OnInit {
+
   usuario: Usuario | undefined;
   carrinhoAberto: boolean = false;
+  total: number = 0;
   constructor(private usuarioService: UsuarioService, private carrinhoService: CarrinhoService) {}
   ngOnInit(): void {
     this.usuarioService.adquirirEu().subscribe(data => {
@@ -58,5 +60,26 @@ export class PainelHeaderComponent implements OnInit {
       }
       this.usuarioService.atualizarEu();
     });
+  }
+
+  getResumo() {
+    if (!this.usuario?.carrinho.produtos) {
+      return;
+    }
+    
+    const resumo = {
+      total: 0.0,
+    };
+    for (let i = 0; i < this.usuario.carrinho.produtos.length; i++) {
+      const produtoAtual = this.usuario.carrinho.produtos[i];
+      resumo.total += produtoAtual.preco * Number.parseInt(produtoAtual.quantidade);
+      console.log(produtoAtual)
+    }
+    
+    this.total = resumo.total;
+  }
+  atualizarQuantidadeProduto(produto: Produto, evento: FocusEvent) {
+    produto.quantidade = (evento.target as HTMLInputElement).value;
+    this.getResumo();
   }
 }

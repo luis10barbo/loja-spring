@@ -76,6 +76,8 @@ input:focus {
     flex-direction: column;
     gap: 20px;
     padding: 20px;
+    height: 100%;
+
 }
 
 #popup-carrinho-titulo {
@@ -93,6 +95,8 @@ input:focus {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    height: 100%;
+
 }
 
 .card-carrinho {
@@ -125,6 +129,12 @@ input:focus {
     overflow: scroll;
 }
 
+.preco-produto-carrinho {
+    font-size: 16px;
+    margin-bottom: auto;
+    // color: p.$cor-perigo;
+}
+
 .container-botoes-carrinho {
     display: flex;
     gap: 5px;
@@ -132,5 +142,32 @@ input:focus {
 }
 
 .botao-produto-carrinho {
-    padding: 10px;
+    width: 100%;
+}
+
+.input-quantidade {
+    width: 100%;
+    font-size: 16px;
+    text-align: center;
+}
+
+.resumo-carrinho {
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 16px;
+}
+
+.titulo-resumo-carrinho {
+    font-size: 20px;
+}
+
+.valor-resumo {
+    display:flex;
+    font-size: 16px;
+    justify-content: space-between;
+}
+
+.total-resumo {
+    color: p.$cor-perigo;
 }

@@ -18,25 +18,35 @@
         </header>
         <section *ngIf="usuario && usuario.carrinho" class="conteudo-carrinho">
             <div *ngFor="let produto of usuario.carrinho.produtos; index as i;" class="card-carrinho">
-                <img [src]="produto.imagem" class="imagem-produto-carrinho">
+                <a  routerLink="/produto" [queryParams]="{id: produto.id}" (click)="fecharCarrinho()">
+                    <img [src]="produto.imagem" class="imagem-produto-carrinho">
+                </a>
                 <div class="texto-produto-carrinho">
                     <p class="titulo-produto-carrinho">
                         {{ produto.nome }}
                     </p>
-                    <p class="descricao-produto-carrinho">
-                        {{ produto.descricao }}
+                    <p class="preco-produto-carrinho">
+                        R$ {{ produto.preco }}
                     </p>
                     <div class="container-botoes-carrinho">
                         <button class="botao-produto-carrinho perigo" (click)="removerDoCarrinho(produto)">Remover</button>
-                        <a  routerLink="/produto" [queryParams]="{id: produto.id}" (click)="fecharCarrinho()">
+                        <!-- <a  routerLink="/produto" [queryParams]="{id: produto.id}" (click)="fecharCarrinho()">
                             <button class="botao-produto-carrinho neutro">Abrir</button>
-                        </a>
+                        </a> -->
+                        <input type="text" placeholder="quantidade" class="input-quantidade" [value]="produto.quantidade" (blur)="atualizarQuantidadeProduto(produto, $event)">
                     </div>
                 </div>
                 
             </div>
         </section>
         <button *ngIf="usuario && usuario.carrinho && usuario.carrinho.produtos && usuario.carrinho.produtos.length > 0" class="perigo" (click)="limparCarrinho()">Limpar Carrinho</button>
-
+        <section class="resumo-carrinho">
+            <p class="titulo-resumo-carrinho">Resumo</p>
+            <div class="valor-resumo">
+                <p>Total</p>
+                <p class="total-resumo">R$ {{total}}</p>
+            </div>
+        </section>
+        <button class="neutro">Finalizar Compra</button>
     </div>
 </div>
