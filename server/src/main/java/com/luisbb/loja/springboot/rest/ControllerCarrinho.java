@@ -26,7 +26,7 @@ public class ControllerCarrinho {
     }
     @PostMapping("/add")
     public boolean adicionarProduto(HttpServletRequest request, @RequestBody Produto produto) {
-        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioUsuario, request.getCookies());
+        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioUsuario, request.getSession());
         if (optUsuario.isEmpty()) {
             return false;
         }
@@ -42,7 +42,7 @@ public class ControllerCarrinho {
 
     @PostMapping("/remover")
     public boolean removerProduto(HttpServletRequest request, @RequestBody Produto produto) {
-        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioUsuario, request.getCookies());
+        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioUsuario, request.getSession());
         if (optUsuario.isEmpty()) {
             return false;
         }
@@ -58,7 +58,7 @@ public class ControllerCarrinho {
 
     @PostMapping("/removerTodos")
     public boolean removerTodosProdutos(HttpServletRequest request) {
-        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioUsuario, request.getCookies());
+        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioUsuario, request.getSession());
         if (optUsuario.isEmpty()) {
             return false;
         }
