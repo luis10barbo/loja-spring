@@ -11,6 +11,7 @@ import { PaginaPrincipalComponent } from './routes/pagina-principal/pagina-princ
 import { PainelHeaderComponent } from './components/painel-header/painel-header.component';
 import { PaginaLoginComponent } from './routes/pagina-login/pagina-login.component';
 import { UsuarioService } from './services/usuario.service';
+import { PaginaSairComponent } from './routes/pagina-sair/pagina-sair.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { UsuarioService } from './services/usuario.service';
     PaginaProdutoComponent,
     PaginaPrincipalComponent,
     PainelHeaderComponent,
-    PaginaLoginComponent
+    PaginaLoginComponent,
+    PaginaSairComponent
   ],
   imports: [
     BrowserModule,

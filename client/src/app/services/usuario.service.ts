@@ -31,10 +31,14 @@ export class UsuarioService {
   }
   
   public entrar(apelido: String, senha: String): Observable<Usuario | undefined> {
-    return this.httpClient.post<Usuario | undefined>(this.url + "/entrar", {apelido, senha}, {});
+    return this.httpClient.post<Usuario | undefined>(this.url + "/entrar", {apelido, senha}, {withCredentials: true});
   }
 
   public registrar(apelido: String, senha: String): Observable<Usuario | undefined> {
-    return this.httpClient.post<Usuario | undefined>(this.url + "/registrar", {apelido, senha}, {});
+    return this.httpClient.post<Usuario | undefined>(this.url + "/registrar", {apelido, senha}, {withCredentials: true});
+  }
+
+  public sair() {
+    return this.httpClient.post(this.url + "/sair", undefined, {withCredentials: true});
   }
 }

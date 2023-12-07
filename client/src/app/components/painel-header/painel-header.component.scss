@@ -75,9 +75,16 @@ input:focus {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 20px;
     height: 100%;
 
+}
+.conteudo-popup > * {
+    padding: 20px;
+}
+
+.conteudo-popup > button {
+    padding: 10px;
+    margin: 20px;
 }
 
 #popup-carrinho-titulo {
@@ -89,6 +96,7 @@ input:focus {
     align-items: center;
     gap: 10px;
     justify-content: space-between;
+    
 }
 
 .conteudo-carrinho {
@@ -96,19 +104,20 @@ input:focus {
     flex-direction: column;
     gap: 10px;
     height: 100%;
-
+    overflow: auto;
+    
 }
 
 .card-carrinho {
     min-width: fit-content;
     display: flex;
     gap: 10px;
-    height: 120px;
+    height: 100px;
 }
 
 .imagem-produto-carrinho {
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     aspect-ratio: 1;
     background-color: g.$cor-secundaria;
     border-radius: 10px;

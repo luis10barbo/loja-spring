@@ -13,11 +13,12 @@ export class PainelHeaderComponent implements OnInit {
 
   usuario: Usuario | undefined;
   carrinhoAberto: boolean = false;
-  total: number = 0;
+  total: string = "0";
   constructor(private usuarioService: UsuarioService, private carrinhoService: CarrinhoService) {}
   ngOnInit(): void {
     this.usuarioService.adquirirEu().subscribe(data => {
       this.usuario = data;
+      this.gerarResumo();
     });
   }
 
@@ -62,7 +63,7 @@ export class PainelHeaderComponent implements OnInit {
     });
   }
 
-  getResumo() {
+  gerarResumo() {
     if (!this.usuario?.carrinho.produtos) {
       return;
     }
@@ -76,10 +77,10 @@ export class PainelHeaderComponent implements OnInit {
       console.log(produtoAtual)
     }
     
-    this.total = resumo.total;
+    this.total = resumo.total.toFixed(2);
   }
   atualizarQuantidadeProduto(produto: Produto, evento: FocusEvent) {
     produto.quantidade = (evento.target as HTMLInputElement).value;
-    this.getResumo();
+    this.gerarResumo();
   }
 }

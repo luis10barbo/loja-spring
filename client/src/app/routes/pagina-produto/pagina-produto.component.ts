@@ -23,13 +23,13 @@ export class PaginaProdutoComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.idProduto = params["id"];
       this.adquirirProduto();
-      this.atualizarUsuario();
     })
   }
 
   private atualizarUsuario() {
     this.usuarioService.adquirirEu().subscribe(data => {
       this.usuario = data
+      console.log(this.usuario, this.produto);
       if (this.usuario?.carrinho.produtos.find(produto => {
         return produto.id === this.produto?.id;
       })) {
@@ -47,6 +47,7 @@ export class PaginaProdutoComponent implements OnInit {
 
     this.servicoProduto.adquirir(this.idProduto).subscribe(data => {
       this.produto = data;
+      this.atualizarUsuario();
     });
   }
   public adicionarProdutoCarrinho() {

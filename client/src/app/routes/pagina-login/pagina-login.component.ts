@@ -67,6 +67,7 @@ export class PaginaLoginComponent implements OnInit {
   }
 
   public sairPagina() {
+    this.usuarioService.atualizarEu();
     this.router.navigate(["/"]);
   }
 }
