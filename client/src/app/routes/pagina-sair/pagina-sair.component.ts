@@ -13,6 +13,7 @@ export class PaginaSairComponent implements OnInit{
   ngOnInit(): void {
     this.usuarioService.sair().subscribe(() => {
       this.router.navigate(["/"]);
+      this.usuarioService.atualizarEu();
     });
   }
 }
