@@ -8,6 +8,9 @@ import com.luisbb.loja.springboot.jpa.repositorios.RepositorioCarrinho;
 import com.luisbb.loja.springboot.jpa.repositorios.RepositorioProdutoCarrinho;
 import com.luisbb.loja.springboot.jpa.repositorios.RepositorioUsuario;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -84,6 +87,22 @@ public class ControllerCarrinho {
 //            this.repositorioProdutoCarrinho.deleteById(produtoCarrinho.getId());
 //        }
         this.repositorioProdutoCarrinho.deleteByIdCarrinho(carrinho.getId());
+        return true;
+    }
+    @Getter @Setter @NoArgsConstructor
+    static class AlterarProduto {
+        private int quantidade;
+    }
+    @PostMapping("/alterarProduto")
+    public boolean alterarProduto(HttpServletRequest request, @RequestBody AlterarProduto alterarProduto) {
+        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioUsuario, request.getSession());
+        if (optUsuario.isEmpty()) {
+            return false;
+        }
+
+        Usuario usuario = optUsuario.get();
+        Carrinho carrinho = usuario.getCarrinho();
+        this.repositorioProdutoCarrinho.setQuantidade(carrinho.getId(), alterarProduto.quantidade);
         return true;
     }
 }

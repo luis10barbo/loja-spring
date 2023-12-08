@@ -82,6 +82,11 @@ export class PainelHeaderComponent implements OnInit {
   }
   atualizarQuantidadeProduto(produto: ProdutoCarrinho, evento: FocusEvent) {
     produto.quantidade = Number.parseInt((evento.target as HTMLInputElement).value);
+    this.carrinhoService.atualizarProdutoCarrinho(produto.quantidade).subscribe(res => {
+      if (!res) {
+        // TODO: Resolver erro ao update carrinho
+      }
+    });
     this.gerarResumo();
   }
 }

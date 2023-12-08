@@ -8,6 +8,9 @@ import { ProdutoCarrinho } from '../models/produtocarrinho';
   providedIn: 'root'
 })
 export class CarrinhoService {
+  atualizarProdutoCarrinho(quantidade: number) {
+    return this.httpClient.post<boolean>(this.url + "/alterarProduto", {quantidade}, {withCredentials: true})
+  }
   
   url = enviroment.urlBackend + "/carrinhos"
   constructor(private httpClient: HttpClient) { }

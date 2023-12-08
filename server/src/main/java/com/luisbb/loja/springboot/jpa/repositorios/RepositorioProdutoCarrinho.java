@@ -21,4 +21,9 @@ public interface RepositorioProdutoCarrinho extends CrudRepository<ProdutoCarrin
     @Modifying
     @Query(value = "INSERT INTO produto_carrinho (id, id_produto, id_carrinho, quantidade) VALUES (:id, :id_produto, :id_carrinho, :quantidade)", nativeQuery = true)
     void addProdutoInCarrinho(@Param("id") String id, @Param("id_produto") long idProduto, @Param("id_carrinho") long idCarrinho, @Param("quantidade") int quantidade);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update produto_carrinho set quantidade = :quantidade where id_produto = :id_produto", nativeQuery = true)
+    void setQuantidade(@Param("id_produto") long idProduto, @Param("quantidade") long quantidade);
 }
