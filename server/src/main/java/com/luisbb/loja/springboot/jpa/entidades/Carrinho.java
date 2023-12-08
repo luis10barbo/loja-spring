@@ -25,15 +25,6 @@ public class Carrinho {
     @JoinColumn(name = "idUsuario")
     private Usuario usuario;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "CarrinhoProduto",
-            joinColumns = @JoinColumn(
-                    name = "idCarrinho"
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "idProduto"
-            )
-    )
-    private Set<Produto> produtos = new HashSet<>();
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH, mappedBy = "carrinho")
+    private Set<ProdutoCarrinho> produtos = new HashSet<>();
 }

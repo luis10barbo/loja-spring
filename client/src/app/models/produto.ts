@@ -5,5 +5,4 @@ export interface Produto {
     preco: number;
     avaliacao: number;
     imagem: String;
-    quantidade: string;
 }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { enviroment } from 'src/environment/environment';
 import { Produto } from '../models/produto';
+import { ProdutoCarrinho } from '../models/produtocarrinho';
 
 @Injectable({
   providedIn: 'root'

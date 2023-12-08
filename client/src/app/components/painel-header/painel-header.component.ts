@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Produto } from 'src/app/models/produto';
+import { ProdutoCarrinho } from 'src/app/models/produtocarrinho';
 import { Usuario } from 'src/app/models/usuario';
 import { CarrinhoService } from 'src/app/services/carrinho.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -45,8 +46,8 @@ export class PainelHeaderComponent implements OnInit {
     this.carrinhoAberto = false;
   }
 
-  removerDoCarrinho(produto: Produto) {
-    this.carrinhoService.removerDoCarrinho(produto).subscribe(res => {
+  removerDoCarrinho(produtoCarrinho: ProdutoCarrinho) {
+    this.carrinhoService.removerDoCarrinho(produtoCarrinho.produto).subscribe(res => {
       if (!res) {
         return;
       }
@@ -73,14 +74,14 @@ export class PainelHeaderComponent implements OnInit {
     };
     for (let i = 0; i < this.usuario.carrinho.produtos.length; i++) {
       const produtoAtual = this.usuario.carrinho.produtos[i];
-      resumo.total += produtoAtual.preco * Number.parseInt(produtoAtual.quantidade);
+      resumo.total += produtoAtual.produto.preco * produtoAtual.quantidade;
       console.log(produtoAtual)
     }
     
     this.total = resumo.total.toFixed(2);
   }
-  atualizarQuantidadeProduto(produto: Produto, evento: FocusEvent) {
-    produto.quantidade = (evento.target as HTMLInputElement).value;
+  atualizarQuantidadeProduto(produto: ProdutoCarrinho, evento: FocusEvent) {
+    produto.quantidade = Number.parseInt((evento.target as HTMLInputElement).value);
     this.gerarResumo();
   }
 }

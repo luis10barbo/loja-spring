@@ -17,23 +17,23 @@
             <button class="neutro" (click)="toggleCarrinho()">Fechar</button>
         </header>
         <section *ngIf="usuario && usuario.carrinho" class="conteudo-carrinho">
-            <div *ngFor="let produto of usuario.carrinho.produtos; index as i;" class="card-carrinho">
-                <a  routerLink="/produto" [queryParams]="{id: produto.id}" (click)="fecharCarrinho()">
-                    <img [src]="produto.imagem" class="imagem-produto-carrinho">
+            <div *ngFor="let produtoCarrinho of usuario.carrinho.produtos; index as i;" class="card-carrinho">
+                <a  routerLink="/produto" [queryParams]="{id: produtoCarrinho.produto.id}" (click)="fecharCarrinho()">
+                    <img [src]="produtoCarrinho.produto.imagem" class="imagem-produto-carrinho">
                 </a>
                 <div class="texto-produto-carrinho">
                     <p class="titulo-produto-carrinho">
-                        {{ produto.nome }}
+                        {{ produtoCarrinho.produto.nome }}
                     </p>
                     <p class="preco-produto-carrinho">
-                        R$ {{ produto.preco }}
+                        R$ {{ produtoCarrinho.produto.preco }}
                     </p>
                     <div class="container-botoes-carrinho">
-                        <button class="botao-produto-carrinho perigo" (click)="removerDoCarrinho(produto)">Remover</button>
+                        <button class="botao-produto-carrinho perigo" (click)="removerDoCarrinho(produtoCarrinho)">Remover</button>
                         <!-- <a  routerLink="/produto" [queryParams]="{id: produto.id}" (click)="fecharCarrinho()">
                             <button class="botao-produto-carrinho neutro">Abrir</button>
                         </a> -->
-                        <input type="text" placeholder="quantidade" class="input-quantidade" [value]="produto.quantidade" (blur)="atualizarQuantidadeProduto(produto, $event)">
+                        <input type="text" placeholder="quantidade" class="input-quantidade" [value]="produtoCarrinho.quantidade" (blur)="atualizarQuantidadeProduto(produtoCarrinho, $event)">
                     </div>
                 </div>
                 

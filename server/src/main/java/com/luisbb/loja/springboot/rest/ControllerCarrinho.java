@@ -2,8 +2,10 @@ package com.luisbb.loja.springboot.rest;
 
 import com.luisbb.loja.springboot.jpa.entidades.Carrinho;
 import com.luisbb.loja.springboot.jpa.entidades.Produto;
+import com.luisbb.loja.springboot.jpa.entidades.ProdutoCarrinho;
 import com.luisbb.loja.springboot.jpa.entidades.Usuario;
 import com.luisbb.loja.springboot.jpa.repositorios.RepositorioCarrinho;
+import com.luisbb.loja.springboot.jpa.repositorios.RepositorioProdutoCarrinho;
 import com.luisbb.loja.springboot.jpa.repositorios.RepositorioUsuario;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,17 +14,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/carrinhos")
 public class ControllerCarrinho {
     private final RepositorioUsuario repositorioUsuario;
     private final RepositorioCarrinho repositorioCarrinho;
+    private final RepositorioProdutoCarrinho repositorioProdutoCarrinho;
 
-    public ControllerCarrinho(RepositorioUsuario repositorioUsuario, RepositorioCarrinho repositorioCarrinho) {
+    public ControllerCarrinho(RepositorioUsuario repositorioUsuario, RepositorioCarrinho repositorioCarrinho, RepositorioProdutoCarrinho repositorioProdutoCarrinho) {
         this.repositorioUsuario = repositorioUsuario;
         this.repositorioCarrinho = repositorioCarrinho;
+        this.repositorioProdutoCarrinho = repositorioProdutoCarrinho;
     }
     @PostMapping("/add")
     public boolean adicionarProduto(HttpServletRequest request, @RequestBody Produto produto) {
@@ -33,8 +37,14 @@ public class ControllerCarrinho {
 
         Usuario usuario = optUsuario.get();
         Carrinho carrinho = usuario.getCarrinho();
-        if (carrinho.getProdutos().stream().noneMatch(p -> p.getId() == produto.getId())) {
-            carrinho.getProdutos().add(produto);
+        if (carrinho.getProdutos().stream().noneMatch(p -> p.getProduto().getId() == produto.getId())) {
+//            ProdutoCarrinho produtoCarrinho = new ProdutoCarrinho();
+//            produtoCarrinho.setCarrinho(carrinho);
+//            produtoCarrinho.setProduto(produto);
+//            produtoCarrinho.setQuantidade(1);
+//            carrinho.getProdutos().add(produtoCarrinho);
+//            repositorioCarrinho.save(carrinho);
+            repositorioProdutoCarrinho.addProdutoInCarrinho(UUID.randomUUID().toString(), produto.getId(), carrinho.getId(), 1);
         }
         repositorioCarrinho.save(carrinho);
         return true;
@@ -46,13 +56,19 @@ public class ControllerCarrinho {
         if (optUsuario.isEmpty()) {
             return false;
         }
-
         Usuario usuario = optUsuario.get();
-        Carrinho carrinho = usuario.getCarrinho();
+//        repositorioProdutoCarrinho.save(produto);
+//        Optional<ProdutoCarrinho> teste = repositorioProdutoCarrinho.findById(produto.getId());
+        // TODO: arrumar delete so estar dando update
+        repositorioProdutoCarrinho.deleteByIdProdutoAndCarrinho(produto.getId(), usuario.getCarrinho().getId());
+//        carrinho.getProdutos().forEach(produtoCarrinho -> {
+//
+////                repositorioProdutoCarrinho.deleteById(produtoCarrinho.getUuid());
+//
+//        });
 
-        carrinho.getProdutos().removeIf(p -> p.getId() == produto.getId());
-
-        repositorioCarrinho.save(carrinho);
+//        Carrinho teste = repositorioCarrinho.save(carrinho);
+//        Optional<Carrinho> fetch = repositorioCarrinho.findById(carrinho.getId());
         return true;
     }
 
@@ -64,9 +80,10 @@ public class ControllerCarrinho {
         }
         Usuario usuario = optUsuario.get();
         Carrinho carrinho = usuario.getCarrinho();
-        carrinho.getProdutos().clear();
-
-        repositorioCarrinho.save(carrinho);
+//        for(ProdutoCarrinho produtoCarrinho: carrinho.getProdutos()) {
+//            this.repositorioProdutoCarrinho.deleteById(produtoCarrinho.getId());
+//        }
+        this.repositorioProdutoCarrinho.deleteByIdCarrinho(carrinho.getId());
         return true;
     }
 }

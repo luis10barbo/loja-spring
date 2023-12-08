@@ -30,8 +30,8 @@ export class PaginaProdutoComponent implements OnInit {
     this.usuarioService.adquirirEu().subscribe(data => {
       this.usuario = data
       console.log(this.usuario, this.produto);
-      if (this.usuario?.carrinho.produtos.find(produto => {
-        return produto.id === this.produto?.id;
+      if (this.usuario?.carrinho.produtos.find(produtoCarrinho => {
+        return produtoCarrinho.produto.id === this.produto?.id;
       })) {
         this.estaEmCarrinho = true;
       } else {
@@ -62,10 +62,14 @@ export class PaginaProdutoComponent implements OnInit {
   }
 
   public removerProdutoCarrinho() {
-    if (!this.produto) {
+    if (!this.produto || !this.usuario) {
       return;
     }
-    this.carrinhoService.removerDoCarrinho(this.produto).subscribe(res => {
+    const produtoCarrinho = this.usuario.carrinho.produtos.find((produtoCarrinho) => produtoCarrinho.produto.id === this.produto?.id);
+    if (!produtoCarrinho) {
+      return;
+    }
+    this.carrinhoService.removerDoCarrinho(produtoCarrinho.produto).subscribe(res => {
       if (res && this.produto?.id) {
         // this.atualizarUsuario();
         this.usuarioService.atualizarEu();
