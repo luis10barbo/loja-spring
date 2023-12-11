@@ -1,8 +1,10 @@
 package com.luisbb.loja.springboot.rest;
 
 import com.luisbb.loja.springboot.jpa.entidades.Carrinho;
+import com.luisbb.loja.springboot.jpa.entidades.Sessao;
 import com.luisbb.loja.springboot.jpa.entidades.Usuario;
 import com.luisbb.loja.springboot.jpa.repositorios.RepositorioCarrinho;
+import com.luisbb.loja.springboot.jpa.repositorios.RepositorioSessao;
 import com.luisbb.loja.springboot.jpa.repositorios.RepositorioUsuario;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,10 +25,12 @@ public class ControllerUsuario {
     private static final String NOME_COOKIE = "idUsuario";
     private final RepositorioUsuario repositorioUsuario;
     private final RepositorioCarrinho repositorioCarrinho;
+    private final RepositorioSessao repositorioSessao;
 
-    public ControllerUsuario(RepositorioUsuario repositorioUsuario, RepositorioCarrinho repositorioCarrinho) {
+    public ControllerUsuario(RepositorioUsuario repositorioUsuario, RepositorioCarrinho repositorioCarrinho, RepositorioSessao repositorioSessao) {
         this.repositorioUsuario = repositorioUsuario;
         this.repositorioCarrinho = repositorioCarrinho;
+        this.repositorioSessao = repositorioSessao;
     }
 
     @GetMapping("/all")
@@ -54,7 +58,7 @@ public class ControllerUsuario {
 
     @GetMapping("/eu")
     public Optional<Usuario> eu(HttpServletRequest request) {
-        return adquirirUsuario(repositorioUsuario, request.getSession());
+        return adquirirUsuario(repositorioSessao, request.getSession());
     }
 
     @PostMapping("/registrar")
@@ -102,7 +106,7 @@ public class ControllerUsuario {
 
     @PostMapping("/sair")
     public void sairUsuario(HttpServletRequest request) {
-        Optional<Usuario> optUsuario = adquirirUsuario(repositorioUsuario, request.getSession());
+        Optional<Usuario> optUsuario = adquirirUsuario(repositorioSessao, request.getSession());
         if (optUsuario.isEmpty()) {
             return;
         }
@@ -126,8 +130,12 @@ public class ControllerUsuario {
         return jwtTokenCookie;
     }
 
-    private void adicionarUsuarioSessao(HttpSession session, Usuario usuario) {
-        session.setAttribute(NOME_COOKIE, usuario);
+    private void adicionarUsuarioSessao(HttpSession sessaoHttp, Usuario usuario) {
+        sessaoHttp.setAttribute(NOME_COOKIE, usuario);
+        Sessao sessao = new Sessao();
+        sessao.setId(sessaoHttp.getId());
+        sessao.setUsuario(usuario);
+        repositorioSessao.save(sessao);
     }
 
     public static Optional<Usuario> adquirirUsuarioCookie(RepositorioUsuario repositorioUsuario, Cookie[] cookies) {
@@ -138,14 +146,18 @@ public class ControllerUsuario {
 
     private void removerCookie(Cookie cookie) {}
 
-    public static Optional<Usuario> adquirirUsuario(RepositorioUsuario repositorioUsuario, HttpSession sessao) {
-        if (sessao == null) return Optional.empty();
+    public static Optional<Usuario> adquirirUsuario(RepositorioSessao repositorioSessao, HttpSession sessaoHttp) {
+        if (sessaoHttp == null) return Optional.empty();
 //        Optional<String> optIdUsuario = Arrays.stream(cookies).filter(cookie -> cookie.getName().equals(NOME_COOKIE)).map(Cookie::getValue).findFirst();
 
-        Usuario usuario = (Usuario) sessao.getAttribute(NOME_COOKIE);
-        if (usuario == null) return Optional.empty();
-
-        return repositorioUsuario.findById(usuario.getIdUsuario());
+//        Usuario usuario = (Usuario) sessaoHttp.getAttribute(NOME_COOKIE);
+//        if (usuario == null) {
+        Optional<Sessao> optSessao = repositorioSessao.findById(sessaoHttp.getId());
+        if (optSessao.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(optSessao.get().getUsuario());
+//        };
     }
 
 }

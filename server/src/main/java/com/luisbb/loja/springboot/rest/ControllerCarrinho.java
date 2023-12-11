@@ -6,6 +6,7 @@ import com.luisbb.loja.springboot.jpa.entidades.ProdutoCarrinho;
 import com.luisbb.loja.springboot.jpa.entidades.Usuario;
 import com.luisbb.loja.springboot.jpa.repositorios.RepositorioCarrinho;
 import com.luisbb.loja.springboot.jpa.repositorios.RepositorioProdutoCarrinho;
+import com.luisbb.loja.springboot.jpa.repositorios.RepositorioSessao;
 import com.luisbb.loja.springboot.jpa.repositorios.RepositorioUsuario;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
@@ -25,15 +26,17 @@ public class ControllerCarrinho {
     private final RepositorioUsuario repositorioUsuario;
     private final RepositorioCarrinho repositorioCarrinho;
     private final RepositorioProdutoCarrinho repositorioProdutoCarrinho;
+    private final RepositorioSessao repositorioSessao;
 
-    public ControllerCarrinho(RepositorioUsuario repositorioUsuario, RepositorioCarrinho repositorioCarrinho, RepositorioProdutoCarrinho repositorioProdutoCarrinho) {
+    public ControllerCarrinho(RepositorioUsuario repositorioUsuario, RepositorioCarrinho repositorioCarrinho, RepositorioProdutoCarrinho repositorioProdutoCarrinho, RepositorioSessao repositorioSessao) {
         this.repositorioUsuario = repositorioUsuario;
         this.repositorioCarrinho = repositorioCarrinho;
         this.repositorioProdutoCarrinho = repositorioProdutoCarrinho;
+        this.repositorioSessao = repositorioSessao;
     }
     @PostMapping("/add")
     public boolean adicionarProduto(HttpServletRequest request, @RequestBody Produto produto) {
-        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioUsuario, request.getSession());
+        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioSessao, request.getSession());
         if (optUsuario.isEmpty()) {
             return false;
         }
@@ -55,7 +58,7 @@ public class ControllerCarrinho {
 
     @PostMapping("/remover")
     public boolean removerProduto(HttpServletRequest request, @RequestBody Produto produto) {
-        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioUsuario, request.getSession());
+        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioSessao, request.getSession());
         if (optUsuario.isEmpty()) {
             return false;
         }
@@ -77,7 +80,7 @@ public class ControllerCarrinho {
 
     @PostMapping("/removerTodos")
     public boolean removerTodosProdutos(HttpServletRequest request) {
-        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioUsuario, request.getSession());
+        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioSessao, request.getSession());
         if (optUsuario.isEmpty()) {
             return false;
         }
@@ -95,7 +98,7 @@ public class ControllerCarrinho {
     }
     @PostMapping("/alterarProduto")
     public boolean alterarProduto(HttpServletRequest request, @RequestBody AlterarProduto alterarProduto) {
-        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioUsuario, request.getSession());
+        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioSessao, request.getSession());
         if (optUsuario.isEmpty()) {
             return false;
         }

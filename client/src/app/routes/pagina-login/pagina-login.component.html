@@ -9,8 +9,8 @@
         <input class="input-main" placeholder="Senha..." #inputSenha1>
         
         <!-- <template *ngIf="tipo == 'Registrar'"> -->
-            <label>Confirmar Senha</label>
-            <input class="input-main" placeholder="Senha..." #inputSenha2>
+            <label *ngIf="tipo === 'Registrar'">Confirmar Senha</label>
+            <input *ngIf="tipo === 'Registrar'" class="input-main" placeholder="Senha..." #inputSenha2>
         <!-- </template> -->
         
         <a *ngIf="tipo === 'Entrar'" routerLink="/registrar" class="texto-toggle-tipo" >Nao tem uma conta? Registre por aqui</a>
