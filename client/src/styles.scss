@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
 
 $cor-bg: #FFFFFF;
 $cor-principal: #0CC5FF;
 $cor-principal-high: #3ad1ff;
 $cor-em-principal: white;
-$cor-outline: #DEDEDE;
+$cor-outline: #E6E6E6;
 $cor-complementar: #F1F1F1;
 $cor-complementar-high: #e2e2e2;
 $cor-em-complementar: #000000;
@@ -71,7 +71,8 @@ button.neutro {
     background-color: $cor-complementar;
     color: $cor-em-complementar;
 }
-button.neutro:hover {
+
+button.neutro:hover, button.neutro.ativo {
     background-color: $cor-complementar-high;
 }
 

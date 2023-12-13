@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Getter @Setter @NoArgsConstructor
 public class Usuario {
@@ -21,6 +24,11 @@ public class Usuario {
     @JsonIgnore
     private String email;
 
+    private Double saldo;
+
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario", fetch = FetchType.EAGER)
     private Carrinho carrinho = new Carrinho(this);
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH, mappedBy = "usuario")
+    private Set<Ordem> ordens = new HashSet<>();
 }

@@ -4,13 +4,15 @@ import { PaginaProdutoComponent } from './routes/pagina-produto/pagina-produto.c
 import { PaginaPrincipalComponent } from './routes/pagina-principal/pagina-principal.component';
 import { PaginaLoginComponent } from './routes/pagina-login/pagina-login.component';
 import { PaginaSairComponent } from './routes/pagina-sair/pagina-sair.component';
+import { PaginaFinalizarComponent } from './routes/pagina-finalizar/pagina-finalizar.component';
 
 const rotas: Routes = [
   {path: "produto", component: PaginaProdutoComponent},
   {path: "", component:PaginaPrincipalComponent},
   {path: "entrar", component: PaginaLoginComponent},
   {path: "registrar", component: PaginaLoginComponent},
-  {path: "sair", component: PaginaSairComponent}
+  {path: "sair", component: PaginaSairComponent},
+  {path: "finalizar", component: PaginaFinalizarComponent}
 ]
 
 @NgModule({

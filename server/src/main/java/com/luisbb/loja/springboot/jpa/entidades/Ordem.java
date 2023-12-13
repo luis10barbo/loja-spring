@@ -1,5 +1,6 @@
 package com.luisbb.loja.springboot.jpa.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,18 +24,18 @@ public class Ordem {
     @Temporal(TemporalType.TIMESTAMP)
     private Date momentoCriacao;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            joinColumns = @JoinColumn(
-                    name = "idOrdem"
-            ),
-            inverseJoinColumns = @JoinColumn(
-                    name = "idProduto"
-            )
-    )
-    private Set<Produto> produtos = new HashSet<>();
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idTransportadora")
     private Transportadora transportadora;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idUsuario")
+    private Usuario usuario;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH, mappedBy = "ordem")
+    private Set<ProdutoOrdem> produtosOrdem = new HashSet<>();
+
+    private boolean cancelada = false;
+    private double frete;
 }

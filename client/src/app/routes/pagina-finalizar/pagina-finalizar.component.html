@@ -1,0 +1,55 @@
+<painel-header></painel-header>
+<main class="">
+    <div id="aba-principal" class="aba">
+        <section id="seccao-produtos">
+            <h2>Produtos do Pedido</h2>
+            <div class="produto" *ngFor="let produtoCarrinho of usuario?.carrinho?.produtos; index as i">
+                <img class="img-produto" [src]="produtoCarrinho.produto.imagem">
+                <div class="direita-produto">
+                    <header class="header-produto">
+                        <p class="titulo-produto">
+                            {{produtoCarrinho.produto.nome}}
+                        </p>
+                        <p class="preco-produto">
+                            R$ {{produtoCarrinho.produto.preco}}
+                        </p>
+                    </header>
+                    {{produtoCarrinho.produto.descricao}}
+                    <div class="container-botoes-produto">
+                        <a routerLink="/produto" [queryParams]="{id: produtoCarrinho.produto.id}">
+                            <button >Abrir Produto</button>
+                        </a>
+                        <button class="perigo" (click)="removerProduto(produtoCarrinho.produto)">Remover Produto</button>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        <section id="seccao-frete">
+            <h2>Frete</h2>
+            <button (click)="selecionarTransportadora(transportadora)" [class]="'neutro botao-transportadora  ' + (transportadoraSelecionada?.id === transportadora.id ? 'ativo' : '')" *ngFor="let transportadora of transportadoras; index as i">
+                <p class="titulo-transportadora ">{{ transportadora.nome }}</p>
+                <div>{{ transportadora.prazoHoras/24 }} Dias</div>
+                <p>R$ {{ transportadora.valorFrete }}</p>
+            </button>
+        </section>
+        
+    </div>
+    <div id="aba-resumo" class="aba">
+        <h2>Resumo</h2>
+        <div class="item-resumo">
+            <p class="titulo-item">Subtotal</p>
+            <p class="valor-item">R$ {{resumo.subtotal.toFixed(2)}}</p>
+        </div>
+        <div class="item-resumo">
+            <p class="titulo-item">Frete</p>
+            <p class="valor-item">R$ {{resumo.frete.toFixed(2)}}</p>
+        </div>
+        <div class="item-resumo item-total">
+            <p class="titulo-item">Total</p>
+            <p class="valor-item valor-total">R$ {{resumo.total.toFixed(2)}}</p>
+        </div>
+        <button (click)="finalizarOrdem()">Comprar</button>
+    </div>
+</main>
+

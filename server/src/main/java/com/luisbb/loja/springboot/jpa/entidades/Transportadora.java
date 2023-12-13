@@ -1,5 +1,6 @@
 package com.luisbb.loja.springboot.jpa.entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,9 @@ public class Transportadora {
 
     private String nome;
     private int prazoHoras;
+    private float valorFrete;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "transportadora")
+    @JsonIgnore
     private Set<Ordem> ordens = new HashSet<>();
 }
