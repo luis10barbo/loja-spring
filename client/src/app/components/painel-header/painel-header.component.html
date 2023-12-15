@@ -4,6 +4,7 @@
     <a routerLink="/contato">Contato</a>
     <input class="barra-pesquisa" placeholder="Pesquisar Produto...">
     <div class="direita-header">
+        <a *ngIf="usuario" routerLink="/ordens">Ordens</a>
         <a *ngIf="usuario" (click)="toggleCarrinho()" >Carrinho ({{usuario?.carrinho?.produtos?.length}})</a>
         <a *ngIf="!usuario" routerLink="/entrar">Entrar</a>
         <a *ngIf="usuario" routerLink="/sair">Sair</a>

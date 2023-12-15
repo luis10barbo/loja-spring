@@ -1,0 +1,29 @@
+<painel-header></painel-header>
+<main>
+    <div class="ordem" *ngFor="let ordem of ordens; index as i;">
+        <p class="ordem-titulo">Ordem #{{ ordem.id }}</p>
+        <div *ngFor="let produtoOrdem of ordem.produtosOrdem" class="produto-ordem">
+            <p class="info-produto">
+                <span class="nome-produto">{{ produtoOrdem.produto.nome }}</span>
+                <span class="descricao-produto">{{ produtoOrdem.produto.descricao }}</span>
+                <span class="preco-produto">R$ {{ produtoOrdem.preco }}</span>
+                <span class="quantidade-produto">x{{ produtoOrdem.quantidade }}</span>
+            </p>
+        </div>
+        <div class="resumo-ordem">
+            <p>Total: R$ {{ extraOrdens.get(ordem.id)?.subtotal?.toFixed(2) }}</p>
+            <p>Frete: R$ {{ ordem.frete.toFixed(2) }}</p>
+            <p class="resumo-total">Total: R$ {{ extraOrdens.get(ordem.id)?.total?.toFixed(2) }}</p>
+        </div>
+
+        <p  class="ordem-data" >Criada em {{ extraOrdens.get(ordem.id)?.data?.toLocaleString() }}</p>
+        <p  class="ordem-data-finalizada" *ngIf="ordem.momentoFinalizada">Finalizada em {{ extraOrdens.get(ordem.id)?.dataFinalizada?.toLocaleString() }}</p>
+        <button class="botao-cancelar perigo" *ngIf="!ordem.momentoFinalizada && !ordem.cancelada" (click)="cancelarOrdem(ordem)">Cancelar</button>
+        <p  class="ordem-cancelada" *ngIf="!ordem.momentoFinalizada && ordem.cancelada" >Ordem Cancelada</p>
+
+
+        <!-- <a routerLink="/ordem" [queryParams]="{id: ordem.id}">
+            <button >Abrir Ordem</button>
+        </a> -->
+    </div>
+</main>

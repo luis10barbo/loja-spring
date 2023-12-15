@@ -1,0 +1,62 @@
+@use "../../../styles.scss" as g;
+
+.ordem {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+    padding: 20px;
+
+    border: 1px solid g.$cor-outline;
+    border-radius: 10px;
+    width: fit-content;
+    
+}
+
+main {
+    display:flex;
+    flex-wrap: wrap;
+    
+    padding:40px;
+    gap: 20px;
+}
+
+.ordem-titulo {
+    font-size: 24px;
+}
+
+.produto-ordem {
+    background-color: g.$cor-complementar;
+    padding: 10px;
+    border-radius: 10px;
+    width: fit-content;
+}
+.info-produto {
+
+    display:flex;
+    gap:10px;
+}
+
+.resumo-ordem {
+    display: flex;
+    gap:15px;
+    // padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: auto;
+}
+
+.ordem-data-finalizada {
+    color: g.$cor-confirmar;
+}
+
+.ordem-cancelada {
+    color: g.$cor-perigo;
+}
+
+.botao-cancelar {
+    width: fit-content;
+}
+
+.resumo-total {
+    font-weight: 600;
+}

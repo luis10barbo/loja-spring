@@ -3,11 +3,9 @@ package com.luisbb.loja.springboot.rest;
 import com.luisbb.loja.springboot.jpa.entidades.*;
 import com.luisbb.loja.springboot.jpa.repositorios.*;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -30,8 +28,8 @@ public class ControllerOrdem {
         this.repositorioProdutoOrdem = repositorioProdutoOrdem;
     }
 
-    @PostMapping("/finalizar")
-    public Ordem finalizar(HttpServletRequest request, @RequestBody long idTransportadora) {
+    @PostMapping("/criar")
+    public Ordem criar(HttpServletRequest request, @RequestBody long idTransportadora) {
         Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioSessao, request.getSession());
         if (optUsuario.isEmpty()) {
             return null;
@@ -91,5 +89,29 @@ public class ControllerOrdem {
         Ordem res = repositorioOrdem.save(ordem);
 
         return res.isCancelada();
+    }
+
+    @GetMapping("/todas")
+    public Iterable<Ordem> todasOrdens(HttpServletRequest request) {
+        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioSessao, request.getSession());
+        if (optUsuario.isEmpty()) {
+            return null;
+        }
+        Usuario usuario = optUsuario.get();
+
+        Optional<Set<Ordem>> optOrdens = repositorioOrdem.findByUserId(usuario.getIdUsuario());
+        return optOrdens.orElse(null);
+    }
+
+    @PostMapping("/finalizar")
+    public boolean finalizarOrdem(HttpServletRequest request, @RequestBody long idOrdem) {
+        Optional<Ordem> optOrdem = this.repositorioOrdem.findById(idOrdem);
+        if (optOrdem.isEmpty()) {
+            return false;
+        }
+        Ordem ordem = optOrdem.get();
+        ordem.setMomentoFinalizada(new Date());
+        repositorioOrdem.save(ordem);
+        return true;
     }
 }

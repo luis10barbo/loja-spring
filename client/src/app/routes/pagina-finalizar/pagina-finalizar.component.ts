@@ -80,7 +80,7 @@ export class PaginaFinalizarComponent implements OnInit {
       // TODO: Mensagem de erro sem transportadora
       return;
     }
-    this.ordemService.finalizarOrdem(this.transportadoraSelecionada.id).subscribe(res => {
+    this.ordemService.criarOrdem(this.transportadoraSelecionada.id).subscribe(res => {
       console.log(res);
     });
   }

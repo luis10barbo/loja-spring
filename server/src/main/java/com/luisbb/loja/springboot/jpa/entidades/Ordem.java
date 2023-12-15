@@ -19,10 +19,11 @@ public class Ordem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private boolean entregaRealizada;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date momentoFinalizada = null;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date momentoCriacao;
+    private Date momentoCriacao = new Date();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idTransportadora")
