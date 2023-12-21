@@ -23,4 +23,5 @@ public class Produto {
     private String imagem;
 
     private double avaliacao = 0.0;
+    private int numAvaliacoes = 0;
 }

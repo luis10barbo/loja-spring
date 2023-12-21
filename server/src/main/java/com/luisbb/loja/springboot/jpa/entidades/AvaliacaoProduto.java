@@ -11,13 +11,15 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AvaliacaoProduto {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinColumn(name = "idProduto")
     private Produto produto;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idUsuario")
     private Usuario usuario;
 
     private float avaliacao;
