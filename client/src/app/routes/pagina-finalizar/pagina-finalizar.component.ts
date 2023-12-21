@@ -68,7 +68,7 @@ export class PaginaFinalizarComponent implements OnInit {
     
     let subtotal = 0;
     this.usuario.carrinho.produtos.forEach(produtoCarrinho => {
-      subtotal += produtoCarrinho.produto.preco;
+      subtotal += produtoCarrinho.produto.preco * produtoCarrinho.quantidade;
     });
     const frete = this.transportadoraSelecionada ? this.transportadoraSelecionada.valorFrete : 0;  
     const total = subtotal + frete;
