@@ -31,4 +31,6 @@ public class Usuario {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH, mappedBy = "usuario")
     private Set<Ordem> ordens = new HashSet<>();
+
+    private boolean admin = false;
 }
