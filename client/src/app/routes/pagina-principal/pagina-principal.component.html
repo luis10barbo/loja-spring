@@ -11,12 +11,14 @@
         </p>
       </div>
       <div id="cards-showcase">
-        <div class="card-showcase">
-  
+        <div class="card-showcase" *ngIf="preview1">
+          <!-- <p class="showcase-titulo">{{ preview1.nome }}</p> -->
+          <img class="showcase-img" [src]="preview1.imagem">
         </div>
   
-        <div class="card-showcase">
-  
+        <div class="card-showcase" *ngIf="preview2">
+          <!-- <p class="showcase-titulo">{{ preview2.nome }}</p> -->
+          <img class="showcase-img" [src]="preview2.imagem">
         </div>
       </div>
       
@@ -28,7 +30,7 @@
           <p>
             {{produto.nome}}
           </p>
-          <p>
+          <p *ngIf="produto.numAvaliacoes > 0">
             {{produto.avaliacao.toFixed(2)}}
           </p>
         </header>  

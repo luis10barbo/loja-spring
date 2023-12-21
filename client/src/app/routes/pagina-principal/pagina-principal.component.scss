@@ -100,3 +100,22 @@ main {
     object-fit: contain;
     border-radius: 15px;
 }
+
+
+
+.showcase-titulo {
+    font-size: 32px;
+}
+
+.card-showcase {
+    display:flex;
+    flex-direction: column;
+    padding:20px;
+    gap:10px;
+    max-width: 450px;
+}
+
+.showcase-img {
+    flex: 1;
+    border-radius: 20px;
+}
