@@ -29,13 +29,13 @@
             {{produto.nome}}
           </p>
           <p>
-            {{produto.avaliacao}}
+            {{produto.avaliacao.toFixed(2)}}
           </p>
         </header>  
         <img class="imagem-produto" *ngIf="produto.imagem" [src]="produto.imagem">
         <footer class="footer-produto">
           <p class="">
-            R$ {{produto.preco}}
+            R$ {{produto.preco.toFixed(2)}}
           </p>
 
           <a *ngIf="produto.id" routerLink="/produto" [queryParams]="{id:produto.id}">
