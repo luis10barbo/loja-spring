@@ -1,0 +1,30 @@
+@use "../../app.component.scss" as g;
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 20px;
+    // background-color: rgba(240,240,240);
+}
+.ordem-finalizada {
+    font-size: 36px;
+}
+
+.holder-botoes {
+   display:flex;
+   gap:20px;
+}
+
+.produto {
+    display: flex;
+    justify-content: space-between;
+
+    padding:10px;
+    background-color: g.$cor-secundaria;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 5px;
+}

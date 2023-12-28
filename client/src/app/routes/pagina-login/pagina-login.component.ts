@@ -24,7 +24,7 @@ export class PaginaLoginComponent implements OnInit {
       this.tipo = "Registrar";
     }
 
-    this.usuarioService.adquirirEu().subscribe(data => {
+    this.usuarioService.atualizarEu().subscribe(data => {
       if (data) {
         this.router.navigate(["/"])
       }

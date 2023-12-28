@@ -1,8 +1,10 @@
 package com.luisbb.loja.springboot.rest;
 
+import com.luisbb.loja.model.retorno.*;
 import com.luisbb.loja.springboot.jpa.entidades.*;
 import com.luisbb.loja.springboot.jpa.repositorios.*;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -113,5 +115,21 @@ public class ControllerOrdem {
         ordem.setMomentoFinalizada(new Date());
         repositorioOrdem.save(ordem);
         return true;
+    }
+
+    @GetMapping
+    public Retorno adquirir(HttpServletResponse response, HttpServletRequest request, @RequestParam long idOrdem) {
+        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioSessao, request.getSession());
+        if (optUsuario.isEmpty()) {
+            return new RetornoUnauthorized(response, "Voce precisa estar logado para acessar essa pagina");
+        }
+        Usuario usuario = optUsuario.get();
+
+        Optional<Ordem> optOrdem = repositorioOrdem.findByIdAndUserId(idOrdem, usuario.getIdUsuario());
+        if (optOrdem.isEmpty()) {
+            return new RetornoNotFound(response, "Ordem nao encontrada");
+        }
+        Ordem ordem = optOrdem.get();
+        return new RetornoSucesso(response, ordem);
     }
 }

@@ -1,0 +1,22 @@
+<painel-header></painel-header>
+<main *ngIf="ordem">
+    <p class="ordem-finalizada">
+        Ordem #{{ ordem.id }} foi finalizada
+    </p>
+    <div class="produto" *ngFor="let produtoOrdem of ordem.produtosOrdem">
+        <p>
+            {{ produtoOrdem.produto.nome }}
+        </p>
+        <p>
+            x{{ produtoOrdem.quantidade }}
+        </p>
+    </div>
+    <div class="holder-botoes">
+        <a [routerLink]="['/']">
+            <button class="neutro">Ir para o inicio</button>
+        </a>
+        <a [routerLink]="['/ordens']">
+            <button class="neutro">Ver todas ordens</button>    
+        </a>
+    </div>
+</main>

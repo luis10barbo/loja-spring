@@ -11,6 +11,8 @@ export class UsuarioService {
   url = enviroment.urlBackend + "/usuarios";
   usuarioBS: BehaviorSubject<Usuario | undefined> = new BehaviorSubject<Usuario | undefined>(undefined);
   usuario = this.usuarioBS.asObservable();
+  usuarioO?: Observable<Usuario | undefined>;
+
   private subscription?: Subscription;
   constructor(private httpClient: HttpClient) { 
     if (this.subscription) {
@@ -25,9 +27,11 @@ export class UsuarioService {
   }
 
   public atualizarEu() {
-    this.subscription = this.httpClient.get<Usuario | undefined>(this.url + "/eu", {withCredentials:true}).subscribe(data => {
+    this.usuarioO = this.httpClient.get<Usuario | undefined>(this.url + "/eu", {withCredentials:true});
+    this.subscription = this.usuarioO.subscribe(data => {
       this.usuarioBS.next(data);
     });
+    return this.usuarioO;
   }
   
   public entrar(apelido: String, senha: String): Observable<Usuario | undefined> {

@@ -81,7 +81,9 @@ export class PaginaFinalizarComponent implements OnInit {
       return;
     }
     this.ordemService.criarOrdem(this.transportadoraSelecionada.id).subscribe(res => {
-      console.log(res);
+      this.usuarioSub?.unsubscribe();
+      this.usuarioService.atualizarEu();
+      this.router.navigate(["/finalizado"], {queryParams: {ordem: res.id}});
     });
   }
 }

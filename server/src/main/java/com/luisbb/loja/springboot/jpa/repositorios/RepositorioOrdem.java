@@ -12,7 +12,7 @@ import java.util.Set;
 
 public interface RepositorioOrdem extends CrudRepository<Ordem, Long> {
     @Transactional
-    @Query(value = "SELECT * FROM ordem WHERE id_usuario = :id_usuario", nativeQuery = true)
+    @Query(value = "SELECT * FROM ordem WHERE id_usuario = :id_usuario ORDER BY momento_criacao DESC", nativeQuery = true)
     Optional<Set<Ordem>> findByUserId(@Param("id_usuario") long idUsuario);
     @Transactional
     @Query(value = "SELECT * FROM ordem WHERE id_usuario = :id_usuario AND id = :id", nativeQuery = true)

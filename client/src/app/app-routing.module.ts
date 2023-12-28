@@ -6,6 +6,7 @@ import { PaginaLoginComponent } from './routes/pagina-login/pagina-login.compone
 import { PaginaSairComponent } from './routes/pagina-sair/pagina-sair.component';
 import { PaginaFinalizarComponent } from './routes/pagina-finalizar/pagina-finalizar.component';
 import { PaginaOrdensComponent } from './routes/pagina-ordens/pagina-ordens.component';
+import { PaginaFinalizadoComponent } from './routes/pagina-finalizado/pagina-finalizado.component';
 
 const rotas: Routes = [
   {path: "produto", component: PaginaProdutoComponent},
@@ -14,7 +15,8 @@ const rotas: Routes = [
   {path: "registrar", component: PaginaLoginComponent},
   {path: "sair", component: PaginaSairComponent},
   {path: "finalizar", component: PaginaFinalizarComponent},
-  {path: "ordens", component: PaginaOrdensComponent}
+  {path: "ordens", component: PaginaOrdensComponent},
+  {path: "finalizado", component: PaginaFinalizadoComponent}
 ]
 
 @NgModule({

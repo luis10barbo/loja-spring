@@ -14,6 +14,7 @@ import { UsuarioService } from './services/usuario.service';
 import { PaginaSairComponent } from './routes/pagina-sair/pagina-sair.component';
 import { PaginaFinalizarComponent } from './routes/pagina-finalizar/pagina-finalizar.component';
 import { PaginaOrdensComponent } from './routes/pagina-ordens/pagina-ordens.component';
+import { PaginaFinalizadoComponent } from './routes/pagina-finalizado/pagina-finalizado.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PaginaOrdensComponent } from './routes/pagina-ordens/pagina-ordens.comp
     PaginaLoginComponent,
     PaginaSairComponent,
     PaginaFinalizarComponent,
-    PaginaOrdensComponent
+    PaginaOrdensComponent,
+    PaginaFinalizadoComponent
   ],
   imports: [
     BrowserModule,
