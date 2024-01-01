@@ -1,0 +1,33 @@
+@use "../../app.component.scss" as g;
+
+.card-produto {
+    display: flex;
+
+    flex-direction: column;
+    justify-content: space-between;
+    width: 275px;
+    height: 305px;
+    border-radius: 10px;
+    border: 1px solid g.$cor-outline;
+    padding:15px
+} 
+
+.header-produto, .footer-produto {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+}
+
+.imagem-produto {
+    height: 200px;
+    object-fit: contain;
+    border-radius: 15px;
+}
+
+.explorador-produtos {
+    display:flex;
+    flex-wrap: wrap;
+    gap:20px
+}

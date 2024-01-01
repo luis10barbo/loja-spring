@@ -15,6 +15,7 @@ import { PaginaSairComponent } from './routes/pagina-sair/pagina-sair.component'
 import { PaginaFinalizarComponent } from './routes/pagina-finalizar/pagina-finalizar.component';
 import { PaginaOrdensComponent } from './routes/pagina-ordens/pagina-ordens.component';
 import { PaginaFinalizadoComponent } from './routes/pagina-finalizado/pagina-finalizado.component';
+import { NavProdutosComponent } from './components/nav-produtos/nav-produtos.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PaginaFinalizadoComponent } from './routes/pagina-finalizado/pagina-fin
     PaginaSairComponent,
     PaginaFinalizarComponent,
     PaginaOrdensComponent,
-    PaginaFinalizadoComponent
+    PaginaFinalizadoComponent,
+    NavProdutosComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,8 @@ import { PaginaFinalizadoComponent } from './routes/pagina-finalizado/pagina-fin
   ],
   bootstrap: [AppComponent],
   exports: [
-    PainelHeaderComponent
+    PainelHeaderComponent,
+    NavProdutosComponent
   ]
 })
 export class AppModule { }

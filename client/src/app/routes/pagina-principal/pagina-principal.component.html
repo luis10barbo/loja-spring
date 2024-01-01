@@ -21,33 +21,8 @@
           <img class="showcase-img" [src]="preview2.imagem">
         </div>
       </div>
-      
     </section>
-  
-    <section class="explorador-produtos" >
-      <div class="card-produto" *ngFor="let produto of produtos">
-        <header class="header-produto">
-          <p>
-            {{produto.nome}}
-          </p>
-          <p *ngIf="produto.numAvaliacoes > 0">
-            {{produto.avaliacao.toFixed(2)}}
-          </p>
-        </header>  
-        <img class="imagem-produto" *ngIf="produto.imagem" [src]="produto.imagem">
-        <footer class="footer-produto">
-          <p class="">
-            R$ {{produto.preco.toFixed(2)}}
-          </p>
-
-          <a *ngIf="produto.id" routerLink="/produto" [queryParams]="{id:produto.id}">
-            <button >
-              Expandir
-            </button>
-          </a>
-        </footer>
-      </div>
-    </section>
+    <nav-produtos [produtos]="produtos"/> 
   </main>
   
   
