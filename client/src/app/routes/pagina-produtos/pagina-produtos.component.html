@@ -1,0 +1,11 @@
+<painel-header></painel-header>
+<main>
+  <p class="titulo-pagina">Resultados da sua pesquisa ({{quantidadeProdutos}})</p>
+    <nav-produtos class="nav-produtos" *ngIf="produtos && produtos.length > 0; else nadaEncontrado" [produtos]="produtos"></nav-produtos>
+
+    <ng-template #nadaEncontrado>
+      <p >
+        Nenhum Produto "{{pesquisa}}" Encontrado :(
+      </p>
+    </ng-template>
+</main>

@@ -1,4 +1,5 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Produto } from 'src/app/models/produto';
 import { ProdutoCarrinho } from 'src/app/models/produtocarrinho';
 import { Usuario } from 'src/app/models/usuario';
@@ -10,12 +11,32 @@ import { UsuarioService } from 'src/app/services/usuario.service';
   templateUrl: './painel-header.component.html',
   styleUrls: ['./painel-header.component.scss']
 })
-export class PainelHeaderComponent implements OnInit {
+export class PainelHeaderComponent implements OnInit, AfterViewInit {
 
   usuario: Usuario | undefined;
   carrinhoAberto: boolean = false;
   total: string = "0";
-  constructor(private usuarioService: UsuarioService, private carrinhoService: CarrinhoService) {}
+
+  pesquisa: string | null = "";
+
+  atualizarPesquisa(event: any) {
+    this.pesquisa = event.target?.value;
+  }
+
+  @ViewChild("inputPesquisa") inputPesquisa: ElementRef<HTMLInputElement> | undefined;
+
+
+
+  constructor(private usuarioService: UsuarioService, private carrinhoService: CarrinhoService, private activatedRoute: ActivatedRoute) {}
+  ngAfterViewInit(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      // console.log(params, this.inputPesquisa);
+      const pesquisa = params["s"];
+      if (this.inputPesquisa && pesquisa) {
+        this.inputPesquisa.nativeElement.value = pesquisa;
+      }
+    });
+  }
   ngOnInit(): void {
     this.usuarioService.adquirirEu().subscribe(data => {
       this.usuario = data;
@@ -24,8 +45,8 @@ export class PainelHeaderComponent implements OnInit {
   }
 
   @ViewChild("painelHeader") painelHeader: ElementRef<HTMLDivElement> | undefined;
-  
-  @HostListener("window:scroll", ['$event']) 
+
+  @HostListener("window:scroll", ['$event'])
   onWindowScroll() {
     // do some stuff here when the window is scrolled
     console.log(window.scrollY, this.painelHeader)
@@ -68,7 +89,7 @@ export class PainelHeaderComponent implements OnInit {
     if (!this.usuario?.carrinho.produtos) {
       return;
     }
-    
+
     const resumo = {
       total: 0.0,
     };
@@ -77,7 +98,7 @@ export class PainelHeaderComponent implements OnInit {
       resumo.total += produtoAtual.produto.preco * produtoAtual.quantidade;
       console.log(produtoAtual)
     }
-    
+
     this.total = resumo.total.toFixed(2);
   }
   atualizarQuantidadeProduto(produto: ProdutoCarrinho, evento: FocusEvent) {

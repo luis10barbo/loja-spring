@@ -9,8 +9,8 @@ export class ServicoProduto {
   private url = enviroment.urlBackend + "/produtos"
   constructor(private http: HttpClient) { }
 
-  public adquirirTodos(): Observable<Produto[]> {
-    return this.http.get<Produto[]>(this.url + "/all");
+  public adquirirTodos(pesquisa?: string): Observable<Produto[]> {
+    return this.http.get<Produto[]>(this.url + "/all", {params: {s: pesquisa ? pesquisa : ""}});
   }
 
   public adquirir(id:number): Observable<Produto> {

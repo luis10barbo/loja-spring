@@ -16,6 +16,7 @@ import { PaginaFinalizarComponent } from './routes/pagina-finalizar/pagina-final
 import { PaginaOrdensComponent } from './routes/pagina-ordens/pagina-ordens.component';
 import { PaginaFinalizadoComponent } from './routes/pagina-finalizado/pagina-finalizado.component';
 import { NavProdutosComponent } from './components/nav-produtos/nav-produtos.component';
+import { PaginaProdutosComponent } from './routes/pagina-produtos/pagina-produtos.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NavProdutosComponent } from './components/nav-produtos/nav-produtos.com
     PaginaFinalizarComponent,
     PaginaOrdensComponent,
     PaginaFinalizadoComponent,
-    NavProdutosComponent
+    NavProdutosComponent,
+    PaginaProdutosComponent
   ],
   imports: [
     BrowserModule,

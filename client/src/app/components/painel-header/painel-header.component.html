@@ -2,7 +2,10 @@
     <a routerLink="/">Inicio</a>
     <a routerLink="/produtos">Produtos</a>
     <a routerLink="/contato">Contato</a>
-    <input class="barra-pesquisa" placeholder="Pesquisar Produto...">
+    <input  class="barra-pesquisa" placeholder="Pesquisar Produto..." type="text" (input)="atualizarPesquisa($event)" [value]="pesquisa" #inputPesquisa>
+
+    <a routerLink="/produtos" [queryParams]="{s: pesquisa}"><button class="neutro">Pesquisar</button></a>
+
     <div class="direita-header">
         <a *ngIf="usuario" routerLink="/ordens">Ordens</a>
         <a *ngIf="usuario" (click)="toggleCarrinho()" >Carrinho ({{usuario?.carrinho?.produtos?.length}})</a>
@@ -37,7 +40,7 @@
                         <input type="text" placeholder="quantidade" class="input-quantidade" [value]="produtoCarrinho.quantidade" (blur)="atualizarQuantidadeProduto(produtoCarrinho, $event)">
                     </div>
                 </div>
-                
+
             </div>
         </section>
         <button *ngIf="usuario && usuario.carrinho && usuario.carrinho.produtos && usuario.carrinho.produtos.length > 0" class="perigo" (click)="limparCarrinho()">Limpar Carrinho</button>
