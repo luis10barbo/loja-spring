@@ -12,6 +12,8 @@ import com.luisbb.loja.model.retorno.RetornoSucesso;
 import com.luisbb.loja.model.retorno.RetornoUnauthorized;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -29,8 +31,8 @@ public class ControllerProduto {
         this.repositorioSessao = repositorioSessao;
     }
     @GetMapping("/all")
-    public Iterable<Produto> adquirirTodos() {
-        return repositorioProduto.findAll();
+    public Iterable<Produto> adquirirTodos(@RequestParam String s) {
+        return repositorioProduto.find("%"+s+"%");
     }
 
     @GetMapping
