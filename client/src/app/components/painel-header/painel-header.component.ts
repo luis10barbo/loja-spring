@@ -101,13 +101,20 @@ export class PainelHeaderComponent implements OnInit, AfterViewInit {
 
     this.total = resumo.total.toFixed(2);
   }
-  atualizarQuantidadeProduto(produto: ProdutoCarrinho, evento: FocusEvent) {
-    produto.quantidade = Number.parseInt((evento.target as HTMLInputElement).value);
-    this.carrinhoService.atualizarProdutoCarrinho(produto.quantidade).subscribe(res => {
-      if (!res) {
-        // TODO: Resolver erro ao update carrinho
+  atualizarQuantidadeProduto(produto: ProdutoCarrinho, evento: Event) {
+
+      const quantidade = Number.parseInt((evento.target as HTMLInputElement).value);
+      if (Number.isNaN(quantidade)) {
+        return;
       }
-    });
-    this.gerarResumo();
+
+      produto.quantidade = quantidade;
+      this.carrinhoService.atualizarProdutoCarrinho(produto.quantidade).subscribe(res => {
+        if (!res) {
+          // TODO: Resolver erro ao update carrinho
+        }
+      });
+      this.gerarResumo();
+
   }
 }

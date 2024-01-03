@@ -37,7 +37,7 @@
                         <!-- <a  routerLink="/produto" [queryParams]="{id: produto.id}" (click)="fecharCarrinho()">
                             <button class="botao-produto-carrinho neutro">Abrir</button>
                         </a> -->
-                        <input type="text" placeholder="quantidade" class="input-quantidade" [value]="produtoCarrinho.quantidade" (blur)="atualizarQuantidadeProduto(produtoCarrinho, $event)">
+                        <input type="text" placeholder="quantidade" class="input-quantidade" [value]="produtoCarrinho.quantidade" (input)="atualizarQuantidadeProduto(produtoCarrinho, $event)">
                     </div>
                 </div>
 
