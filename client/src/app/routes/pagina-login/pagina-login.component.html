@@ -2,7 +2,7 @@
 <main>
 
     <h1>{{usuario}}</h1>
-    <div class="holder-login">
+    <form class="holder-login">
 
 
         <ng-template *ngIf="tipo === 'Registrar'; then tabRegistrar; else tabLogar"/>
@@ -13,19 +13,19 @@
           <input type="password" class="input-main" placeholder="Senha..." #inputSenha1>
           <label>Confirmar Senha</label>
           <input type="password" class="input-main" placeholder="Senha..." #inputSenha2>
-          <button (click)="registrar()">Registrar</button>
+          <button type="button" (click)="registrar()">Registrar</button>
         </ng-template>
         <ng-template #tabLogar>
           <label>Apelido</label>
-          <input type="password" class="input-main" placeholder="Apelido..." #inputApelido>
+          <input class="input-main" placeholder="Apelido..." #inputApelido>
           <label>Senha</label>
           <input type="password" class="input-main" placeholder="Senha..." #inputSenha1>
-          <button (click)="logar()">Logar</button>
+          <button type="button" (click)="logar()">Logar</button>
         </ng-template>
 
         <a *ngIf="tipo === 'Entrar'" routerLink="/registrar" class="texto-toggle-tipo" >Nao tem uma conta? Registre por aqui</a>
         <a *ngIf="tipo === 'Registrar'" routerLink="/entrar" class="texto-toggle-tipo" >Tem uma conta? Entre por aqui</a>
 
 
-    </div>
+      </form>
 </main>
