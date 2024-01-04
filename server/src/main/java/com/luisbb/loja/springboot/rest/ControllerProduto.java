@@ -10,6 +10,7 @@ import com.luisbb.loja.model.retorno.Retorno;
 import com.luisbb.loja.model.retorno.RetornoBadRequest;
 import com.luisbb.loja.model.retorno.RetornoSucesso;
 import com.luisbb.loja.model.retorno.RetornoUnauthorized;
+import com.luisbb.loja.springboot.jpa.repositorios.RepositorioUsuario;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
@@ -41,8 +42,18 @@ public class ControllerProduto {
     }
 
     @PostMapping
-    public Produto criar(@RequestBody Produto produto) {
-        return repositorioProduto.save(produto);
+    public Retorno criar(HttpServletRequest request, HttpServletResponse response, @RequestBody Produto produto) {
+        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioSessao, request.getSession());
+        if (optUsuario.isEmpty()) {
+            return new RetornoUnauthorized(response);
+        }
+
+        Usuario usuario = optUsuario.get();
+        if (!usuario.isAdmin()) {
+            return new RetornoUnauthorized(response, "Voce precisa ser admin para criar produtos");
+        }
+
+        return new RetornoSucesso(response, repositorioProduto.save(produto));
     }
 
     public static class BodyRemoverAvaliar {

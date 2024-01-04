@@ -1,0 +1,60 @@
+@use "../../app.component.scss" as g;
+
+main {
+  display: flex;
+  padding:12px;
+}
+
+h2 {
+  margin: 0;
+}
+
+.sidebar-titulo {
+  font-size: 24px;
+  padding-bottom: 12px;
+}
+
+.sidebar-controller {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-radius: 10px;
+  min-width: 300px;
+  padding:12px;
+  white-space: nowrap;
+  background-color: g.$cor-secundaria;
+  height: fit-content;
+}
+
+.sidebar-controller > * {
+  width: 100%;
+}
+
+.controle {
+  width: 100%;
+}
+
+.controle-selecao {
+  display:flex;
+  flex-direction: column;
+  padding: 0 12px;
+  gap: 6px;
+}
+
+.img-preview {
+  max-height: 400px;
+  object-fit: contain;
+}
+
+.subtab {
+  display: contents;
+}
+
+nav-produtos .card-produtos {
+  width: 150px;
+  height: 175px;
+}
+
+nav-produtos .imagem-produto {
+  height: 100px;
+}

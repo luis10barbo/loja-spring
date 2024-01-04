@@ -14,11 +14,24 @@
         R$ {{produto.preco.toFixed(2)}}
         </p>
 
-        <a *ngIf="produto.id" routerLink="/produto" [queryParams]="{id:produto.id}">
-        <button >
-            Expandir
-        </button>
-        </a>
+
+        <ng-template *ngIf="clique; then botaoClique; else botaoExpandir" >
+
+        </ng-template>
+        <ng-template #botaoClique>
+          <button *ngIf="clique" (click)="clique(produto)">
+            {{ textoClique }}
+          </button>
+        </ng-template>
+        <ng-template #botaoExpandir>
+          <a *ngIf="produto.id" routerLink="/produto" [queryParams]="{id:produto.id}">
+            <button >
+              Expandir
+            </button>
+          </a>
+        </ng-template>
+
+
     </footer>
     </div>
 </section>

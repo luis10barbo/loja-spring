@@ -4,4 +4,5 @@ export interface Usuario {
     id?:number;
     apelido: String;
     carrinho: Carrinho;
+    admin: boolean;
 }

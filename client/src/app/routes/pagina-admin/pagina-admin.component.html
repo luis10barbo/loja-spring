@@ -1,0 +1,61 @@
+<painel-header></painel-header>
+<main>
+  <div class="sidebar-controller">
+    <p class="sidebar-titulo">Funções</p>
+    <button (click)="mudarControle(Controle.CriarProduto)">Criar Produto</button>
+    <!-- <button (click)="mudarControle(Controle.EditarProduto)">Editar Produto</button> -->
+
+  </div>
+  <div class="controle">
+    <div *ngIf="selecao === Controle.CriarProduto" class="controle-selecao">
+      <h2>Criar Produto</h2>
+      <label>Nome Produto</label>
+      <input placeholder="nome" #nomeProduto>
+
+      <label>Descrição Produto</label>
+      <input placeholder="descricao" #descricaoProduto>
+
+      <label>Preço Produto</label>
+      <input placeholder="preco" #precoProduto>
+
+      <label>Imagem Produto</label>
+      <input placeholder="imagem" (blur)="adquirirImagem($event)">
+      <img class="img-preview" #previewImgProduto/>
+
+      <button class="neutro" (click)="criarProduto()">Criar Produto</button>
+
+    </div>
+    <div *ngIf="selecao === Controle.EditarProduto" class="controle-selecao">
+      {{ edicaoProduto }}
+      <ng-template *ngIf="edicaoProduto; then editEditarProduto; else editPesquisarProduto">
+
+      </ng-template>
+      <ng-template class="subtab" #editEditarProduto>
+        <p class="titulo-funcionalidade">Editar Produto</p>
+        <label>Nome Produto</label>
+        <input placeholder="nome" #nomeProduto>
+
+        <label>Descrição Produto</label>
+        <input placeholder="descricao" #descricaoProduto>
+
+        <label>Preço Produto</label>
+        <input placeholder="preco" #precoProduto>
+
+        <label>Imagem Produto</label>
+        <input placeholder="imagem" (blur)="adquirirImagem($event)">
+        <img class="img-preview" #previewImgProduto/>
+
+        <button class="neutro" (click)="criarProduto()">Editar Produto</button>
+        <p class="titulo-funcionalidade">Selecionar Produto</p>
+      </ng-template>
+      <ng-template class="subtab" #editPesquisarProduto>
+        <p class="titulo-funcionalidade">Pesquisar Produto para editar</p>
+        <input placeholder="Pesquise um produto" #inputPesquisaEditarProduto>
+        <button (click)="pesquisarProdutos($event)">Pesquisar</button>
+        <nav-produtos [produtos]="produtosEditar" [clique]="selecionarProdutoEditar" tamanho="P"></nav-produtos>
+      </ng-template>
+    </div>
+
+  </div>
+</main>
+

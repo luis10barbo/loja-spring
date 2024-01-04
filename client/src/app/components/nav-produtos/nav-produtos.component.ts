@@ -9,4 +9,13 @@ import { Produto } from 'src/app/models/produto';
 export class NavProdutosComponent {
   @Input()
   produtos!: Produto[];
+
+  @Input()
+  clique?: (produto: Produto) => void;
+
+  @Input()
+  textoClique: string = "Selecionar";
+
+  @Input()
+  tamanho: "P" | "N" = "N";
 }

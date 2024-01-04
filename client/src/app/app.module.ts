@@ -17,6 +17,7 @@ import { PaginaOrdensComponent } from './routes/pagina-ordens/pagina-ordens.comp
 import { PaginaFinalizadoComponent } from './routes/pagina-finalizado/pagina-finalizado.component';
 import { NavProdutosComponent } from './components/nav-produtos/nav-produtos.component';
 import { PaginaProdutosComponent } from './routes/pagina-produtos/pagina-produtos.component';
+import { PaginaAdminComponent } from './routes/pagina-admin/pagina-admin.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PaginaProdutosComponent } from './routes/pagina-produtos/pagina-produto
     PaginaOrdensComponent,
     PaginaFinalizadoComponent,
     NavProdutosComponent,
-    PaginaProdutosComponent
+    PaginaProdutosComponent,
+    PaginaAdminComponent
   ],
   imports: [
     BrowserModule,

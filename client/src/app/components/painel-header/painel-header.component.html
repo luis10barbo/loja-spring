@@ -7,6 +7,7 @@
     <a routerLink="/produtos" [queryParams]="{s: pesquisa}"><button class="neutro">Pesquisar</button></a>
 
     <div class="direita-header">
+        <a *ngIf="usuario && usuario.admin" routerLink="/admin">Admin</a>
         <a *ngIf="usuario" routerLink="/ordens">Ordens</a>
         <a *ngIf="usuario" (click)="toggleCarrinho()" >Carrinho ({{usuario?.carrinho?.produtos?.length}})</a>
         <a *ngIf="!usuario" routerLink="/entrar">Entrar</a>

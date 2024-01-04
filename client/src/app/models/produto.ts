@@ -1,9 +1,9 @@
 export interface Produto {
     id?:number;
-    nome: String;
-    descricao: String;
+    nome: string;
+    descricao: string;
     preco: number;
     avaliacao: number;
-    imagem: String;
+    imagem: string;
     numAvaliacoes: number;
 }
