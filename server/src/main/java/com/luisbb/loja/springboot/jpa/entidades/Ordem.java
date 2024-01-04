@@ -25,6 +25,9 @@ public class Ordem {
     @Temporal(TemporalType.TIMESTAMP)
     private Date momentoCriacao = new Date();
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date momentoEsperadoFinalizada = new Date();
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idTransportadora")
     private Transportadora transportadora;

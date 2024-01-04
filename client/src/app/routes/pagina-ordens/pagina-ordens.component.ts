@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Ordem } from 'src/app/models/ordem';
 import { OrdemService } from 'src/app/services/ordem/ordem.service';
+import { eErroResposta } from 'src/app/utils/resposta';
 
 @Component({
   selector: 'app-pagina-ordens',
@@ -11,7 +12,7 @@ export class PaginaOrdensComponent implements OnInit {
 
   ordens?: Ordem[];
   extraOrdens: Map<number, {data: Date, total: number, subtotal: number, dataFinalizada?: Date}> = new Map();
-  
+
   constructor(private ordemService: OrdemService) {}
 
   ngOnInit(): void {
@@ -20,7 +21,10 @@ export class PaginaOrdensComponent implements OnInit {
 
   adquirirOrdens() {
     this.ordemService.adquirirOrdens().subscribe(res => {
-      this.ordens = res;
+      if (eErroResposta(res)) {
+        return;
+      }
+      this.ordens = res.retorno;
       this.gerarInfoExtra();
     });
   }
@@ -35,14 +39,14 @@ export class PaginaOrdensComponent implements OnInit {
         })
 
         this.extraOrdens.set(ordem.id, {
-          data: new Date(ordem.momentoCriacao), 
+          data: new Date(ordem.momentoCriacao),
           subtotal: subtotal,
           total: subtotal + ordem.frete,
           dataFinalizada: ordem.momentoFinalizada ? new Date(ordem.momentoFinalizada) : undefined
         });
       }
     })
-  } 
+  }
 
   cancelarOrdem(ordem: Ordem) {
     this.ordemService.cancelarOrdem(ordem).subscribe(res => {

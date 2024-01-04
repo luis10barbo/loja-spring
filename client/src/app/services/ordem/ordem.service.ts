@@ -13,11 +13,11 @@ export class OrdemService {
   adquirirOrdem(idOrdem: number) {
     return this.httpClient.get<RespostaSucesso<Ordem> | RespostaErro>(this.url, {withCredentials: true, params: {idOrdem}});
   }
-  
+
   url = enviroment.urlBackend + "/ordens";
 
   constructor(private httpClient: HttpClient) { }
-  
+
   criarOrdem(idTransportadora:number) {
     return this.httpClient.post<Ordem>(this.url + "/criar", idTransportadora, {withCredentials: true});
   }
@@ -27,7 +27,7 @@ export class OrdemService {
   }
 
   adquirirOrdens() {
-    return this.httpClient.get<Ordem[]>(this.url + "/todas", {withCredentials:true});
+    return this.httpClient.get<RespostaSucesso<Ordem[]> | RespostaErro>(this.url + "/todas", {withCredentials:true});
   }
 
   finalizarOrdem(idOrdem: number) {

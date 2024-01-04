@@ -7,10 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping("/ordens")
@@ -60,6 +57,11 @@ public class ControllerOrdem {
         ordem.setUsuario(usuario);
         ordem.setTransportadora(transportadora);
         ordem.setFrete(transportadora.getValorFrete());
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.HOUR_OF_DAY, 72);
+        ordem.setMomentoEsperadoFinalizada(cal.getTime());
         Ordem res = repositorioOrdem.save(ordem);
 
         if (res.getId() != 0) {
@@ -94,7 +96,7 @@ public class ControllerOrdem {
     }
 
     @GetMapping("/todas")
-    public Iterable<Ordem> todasOrdens(HttpServletRequest request) {
+    public Retorno todasOrdens(HttpServletRequest request, HttpServletResponse resposta) {
         Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioSessao, request.getSession());
         if (optUsuario.isEmpty()) {
             return null;
@@ -102,7 +104,12 @@ public class ControllerOrdem {
         Usuario usuario = optUsuario.get();
 
         Optional<Set<Ordem>> optOrdens = repositorioOrdem.findByUserId(usuario.getIdUsuario());
-        return optOrdens.orElse(null);
+        if (optOrdens.isEmpty()) {
+            return new RetornoNotFound(resposta, "Nenhuma ordem encontrada");
+        }
+        Set<Ordem> ordens = optOrdens.get();
+        
+        return new RetornoSucesso(resposta, ordens);
     }
 
     @PostMapping("/finalizar")
