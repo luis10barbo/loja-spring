@@ -30,7 +30,6 @@ export class PainelHeaderComponent implements OnInit, AfterViewInit {
   constructor(private usuarioService: UsuarioService, private carrinhoService: CarrinhoService, private activatedRoute: ActivatedRoute) {}
   ngAfterViewInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
-      // console.log(params, this.inputPesquisa);
       const pesquisa = params["s"];
       if (this.inputPesquisa && pesquisa) {
         this.inputPesquisa.nativeElement.value = pesquisa;
@@ -49,7 +48,6 @@ export class PainelHeaderComponent implements OnInit, AfterViewInit {
   @HostListener("window:scroll", ['$event'])
   onWindowScroll() {
     // do some stuff here when the window is scrolled
-    console.log(window.scrollY, this.painelHeader)
     if (!this.painelHeader?.nativeElement.classList) return;
 
     if (window.scrollY > 60) {
@@ -96,7 +94,6 @@ export class PainelHeaderComponent implements OnInit, AfterViewInit {
     for (let i = 0; i < this.usuario.carrinho.produtos.length; i++) {
       const produtoAtual = this.usuario.carrinho.produtos[i];
       resumo.total += produtoAtual.produto.preco * produtoAtual.quantidade;
-      console.log(produtoAtual)
     }
 
     this.total = resumo.total.toFixed(2);
