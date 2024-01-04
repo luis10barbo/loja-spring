@@ -15,11 +15,11 @@
         </p>
 
 
-        <ng-template *ngIf="clique; then botaoClique; else botaoExpandir" >
+        <ng-template *ngIf="cliqueCustomizado; then botaoClique; else botaoExpandir" >
 
         </ng-template>
         <ng-template #botaoClique>
-          <button *ngIf="clique" (click)="clique(produto)">
+          <button (click)="transmitirClique(produto)">
             {{ textoClique }}
           </button>
         </ng-template>

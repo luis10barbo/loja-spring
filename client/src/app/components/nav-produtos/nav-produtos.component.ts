@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Produto } from 'src/app/models/produto';
 
 @Component({
@@ -11,11 +11,19 @@ export class NavProdutosComponent {
   produtos!: Produto[];
 
   @Input()
-  clique?: (produto: Produto) => void;
+  cliqueCustomizado: boolean = false;
+
+  @Output()
+  aoClicar = new EventEmitter<Produto>();
+
 
   @Input()
   textoClique: string = "Selecionar";
 
   @Input()
   tamanho: "P" | "N" = "N";
+
+  transmitirClique(produto: Produto) {
+    this.aoClicar.emit(produto);
+  }
 }
