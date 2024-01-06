@@ -13,6 +13,6 @@ import java.util.Set;
 public interface RepositorioProduto extends CrudRepository<Produto, Long> {
 
     @Transactional
-    @Query(value = "SELECT * FROM produto WHERE lower(nome) LIKE lower(:pesquisa) OR lower(descricao) LIKE lower(:pesquisa)", nativeQuery = true)
+    @Query(value = "SELECT * FROM produto WHERE lower(nome) LIKE lower(:pesquisa) OR lower(descricao) LIKE lower(:pesquisa) ORDER BY avaliacao DESC, preco ASC", nativeQuery = true)
     Set<Produto> find(@Param("pesquisa") String pesquisa);
 }

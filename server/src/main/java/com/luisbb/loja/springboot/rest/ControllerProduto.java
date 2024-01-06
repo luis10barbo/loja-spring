@@ -1,20 +1,19 @@
 package com.luisbb.loja.springboot.rest;
 
+import com.luisbb.loja.model.retorno.*;
 import com.luisbb.loja.springboot.jpa.entidades.AvaliacaoProduto;
 import com.luisbb.loja.springboot.jpa.entidades.Produto;
 import com.luisbb.loja.springboot.jpa.entidades.Usuario;
 import com.luisbb.loja.springboot.jpa.repositorios.RepositorioAvaliacaoProduto;
 import com.luisbb.loja.springboot.jpa.repositorios.RepositorioProduto;
 import com.luisbb.loja.springboot.jpa.repositorios.RepositorioSessao;
-import com.luisbb.loja.model.retorno.Retorno;
-import com.luisbb.loja.model.retorno.RetornoBadRequest;
-import com.luisbb.loja.model.retorno.RetornoSucesso;
-import com.luisbb.loja.model.retorno.RetornoUnauthorized;
 import com.luisbb.loja.springboot.jpa.repositorios.RepositorioUsuario;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.Setter;
+import org.postgresql.util.PSQLException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -60,6 +59,51 @@ public class ControllerProduto {
         public long idProduto;
     }
 
+    @PostMapping("/remover")
+    public Retorno removerProduto(@RequestBody Produto produto, HttpServletResponse response, HttpServletRequest request) {
+        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioSessao, request.getSession());
+        if (optUsuario.isEmpty()) {
+            return new RetornoUnauthorized(response);
+        }
+        Usuario usuario = optUsuario.get();
+
+        if (!usuario.isAdmin()) {
+            return new RetornoUnauthorized(response);
+        }
+        try {
+            repositorioProduto.delete(produto);
+        } catch (Exception e) {
+            if (e instanceof DataIntegrityViolationException) {
+                return new RetornoInternalServerError(response, "O produto esta dentro de ordens/carrinhos");
+            }
+            if (e instanceof NullPointerException) {
+                throw e;
+            }
+        }
+        return new RetornoSucesso(response);
+    }
+
+    @PostMapping("/editar")
+    public Retorno editarProduto(@RequestBody Produto produto, HttpServletResponse response, HttpServletRequest request)  {
+        Optional<Usuario> optUsuario = ControllerUsuario.adquirirUsuario(repositorioSessao, request.getSession());
+        if (optUsuario.isEmpty()) {
+            return new RetornoUnauthorized(response);
+        }
+        Usuario usuario = optUsuario.get();
+
+        if (!usuario.isAdmin()) {
+            return new RetornoUnauthorized(response);
+        }
+
+        Optional<Produto> optProdutoDB = repositorioProduto.findById(produto.getId());
+        if (optProdutoDB.isEmpty()) {
+            return new RetornoNotFound(response, "Produto nao encontrado");
+        }
+        Produto produtoDB = optProdutoDB.get();
+        repositorioProduto.save(produto);
+
+        return new RetornoSucesso(response, produtoDB);
+    }
 
     @PostMapping("/removerAvaliacao")
     public Retorno removerAvaliacao(@RequestBody BodyAvaliar bodyAvaliar, HttpServletRequest request, HttpServletResponse response) {

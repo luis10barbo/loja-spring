@@ -3,8 +3,8 @@
   <div class="sidebar-controller">
     <p class="sidebar-titulo">Funções</p>
     <button (click)="mudarControle(Controle.CriarProduto)">Criar Produto</button>
-    <!-- <button (click)="mudarControle(Controle.EditarProduto)">Editar Produto</button> -->
-
+    <button (click)="mudarControle(Controle.EditarProduto)">Editar Produto</button>
+    <button (click)="mudarControle(Controle.RemoverProduto)">Remover Produto</button>
   </div>
   <div class="controle">
     <div *ngIf="selecao === Controle.CriarProduto" class="controle-selecao">
@@ -20,42 +20,47 @@
 
       <label>Imagem Produto</label>
       <input placeholder="imagem" (blur)="adquirirImagem($event)">
-      <img class="img-preview" #previewImgProduto/>
+      <img id="img-criar" class="img-preview" [src]="srcImgCriar" #previewImgProduto/>
 
       <button class="neutro" (click)="criarProduto()">Criar Produto</button>
 
     </div>
     <div *ngIf="selecao === Controle.EditarProduto" class="controle-selecao">
-      {{ edicaoProduto }}
-      <ng-template *ngIf="edicaoProduto; then editEditarProduto; else editPesquisarProduto">
+      <ng-template *ngIf="edicaoProduto && edicaoProdutoInicial; then editEditarProduto; else editPesquisarProduto">
 
       </ng-template>
       <ng-template class="subtab" #editEditarProduto>
         <p class="titulo-funcionalidade">Editar Produto</p>
         <label>Nome Produto</label>
-        <input placeholder="nome" #nomeProduto>
+        <input placeholder="nome" #editNomeProduto>
 
         <label>Descrição Produto</label>
-        <input placeholder="descricao" #descricaoProduto>
+        <input placeholder="descricao" #editDescricaoProduto>
 
         <label>Preço Produto</label>
-        <input placeholder="preco" #precoProduto>
+        <input placeholder="preco" #editPrecoProduto>
 
         <label>Imagem Produto</label>
-        <input placeholder="imagem" (blur)="adquirirImagem($event)">
-        <img class="img-preview" #previewImgProduto/>
+        <input placeholder="imagem" (blur)="adquirirImagemEdit($event)" #imgProduto>
+        <img id="img-edit" class="img-preview" [src]="srcImgEdit" #editPreviewImgProduto/>
 
-        <button class="neutro" (click)="criarProduto()">Editar Produto</button>
+        <button class="" (click)="editarProduto()">Editar Produto</button>
+        <button class="perigo" (click)="deselecionarProduto()">Selecionar Outro Produto</button>
         <p class="titulo-funcionalidade">Selecionar Produto</p>
       </ng-template>
       <ng-template class="subtab" #editPesquisarProduto>
         <p class="titulo-funcionalidade">Pesquisar Produto para editar</p>
-        <input placeholder="Pesquise um produto" #inputPesquisaEditarProduto>
+        <input placeholder="Pesquise um produto" [value]="pesquisaProdutos" #inputPesquisaEditarProduto>
         <button (click)="pesquisarProdutos($event)">Pesquisar</button>
-        <nav-produtos [produtos]="produtosEditar" [clique]="selecionarProdutoEditar" tamanho="P"></nav-produtos>
+        <nav-produtos [produtos]="produtosEditar" (aoClicar)="selecionarProdutoEditar($event)" [cliqueCustomizado]="true" tamanho="P"></nav-produtos>
       </ng-template>
     </div>
-
+    <div *ngIf="selecao === Controle.RemoverProduto" class="controle-selecao">
+      <p class="titulo-funcionalidade">Pesquisar Produto para Remover</p>
+      <input placeholder="Pesquise um produto" [value]="pesquisaProdutos" #inputPesquisaEditarProduto>
+      <button (click)="pesquisarProdutos($event)">Pesquisar</button>
+      <nav-produtos [produtos]="produtosEditar" (aoClicar)="removerProduto($event)" [cliqueCustomizado]="true" tamanho="P" textoClique="Remover" [cliquePerigoso]="true"></nav-produtos>
+    </div>
   </div>
 </main>
 

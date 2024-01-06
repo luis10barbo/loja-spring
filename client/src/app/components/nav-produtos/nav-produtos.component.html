@@ -19,13 +19,13 @@
 
         </ng-template>
         <ng-template #botaoClique>
-          <button (click)="transmitirClique(produto)">
+          <button [class]="cliquePerigoso ? 'perigo' : ''" (click)="transmitirClique(produto)">
             {{ textoClique }}
           </button>
         </ng-template>
         <ng-template #botaoExpandir>
           <a *ngIf="produto.id" routerLink="/produto" [queryParams]="{id:produto.id}">
-            <button >
+            <button [class]="cliquePerigoso ? 'perigo' : ''" >
               Expandir
             </button>
           </a>

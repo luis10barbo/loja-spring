@@ -1,10 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Produto } from 'src/app/models/produto';
 import { ServicoProduto } from 'src/app/services/servico-produto.service';
+import { eErroResposta } from 'src/app/utils/resposta';
+
 
 const Controle = {
   CriarProduto: "CriarProduto",
-  EditarProduto: "EditarProduto"
+  EditarProduto: "EditarProduto",
+  RemoverProduto: "RemoverProduto"
 } as const;
 
 @Component({
@@ -14,7 +18,7 @@ const Controle = {
 })
 export class PaginaAdminComponent implements OnInit {
   readonly Controle = Controle;
-  selecao: keyof typeof Controle = Controle.CriarProduto;
+  selecao: keyof typeof Controle = Controle.EditarProduto;
   criacaoProduto: Produto = {
     nome: "",
     avaliacao: 0,
@@ -25,8 +29,14 @@ export class PaginaAdminComponent implements OnInit {
   };
 
   edicaoProduto?: Produto;
+  edicaoProdutoInicial?: Produto;
 
-  constructor(private produtoService: ServicoProduto) {}
+  srcImgCriar: string = "";
+  srcImgEdit: string = "";
+
+  pesquisaProdutos:string = "";
+
+  constructor(private produtoService: ServicoProduto, private router: Router) {}
   ngOnInit(): void {
     this.pesquisarProdutos("");
   }
@@ -34,7 +44,9 @@ export class PaginaAdminComponent implements OnInit {
   @ViewChild("nomeProduto") inputNomeProduto!: ElementRef<HTMLInputElement>;
   @ViewChild("descricaoProduto") inputDescricaoProduto!: ElementRef<HTMLInputElement>;
   @ViewChild("precoProduto") inputPrecoProduto!: ElementRef<HTMLInputElement>;
-  @ViewChild("previewImgProduto") inputImgProduto: ElementRef<HTMLImageElement> | undefined;
+  @ViewChild("imgProduto") inputImgProduto!: ElementRef<HTMLInputElement>;
+
+  @ViewChild("previewImgProduto") imgProduto: ElementRef<HTMLImageElement> | undefined;
 
   mudarControle(controle: keyof typeof Controle) {
     this.selecao = controle;
@@ -43,12 +55,14 @@ export class PaginaAdminComponent implements OnInit {
   adquirirImagem(event: FocusEvent) {
     const value = (event.target as HTMLInputElement).value;
 
-    if (this.selecao === Controle.CriarProduto) {
-      this.criacaoProduto.imagem = value;
-      if (this.inputImgProduto && this.criacaoProduto.imagem && this.criacaoProduto.imagem.length !== 0) {
-        this.inputImgProduto.nativeElement.src = this.criacaoProduto.imagem;
-      }
-    }
+    this.srcImgCriar = value;
+    // if (this.selecao === Controle.CriarProduto) {
+    //   this.criacaoProduto.imagem = value;
+    //   if (this.inputImgProduto && this.criacaoProduto.imagem && this.criacaoProduto.imagem.length !== 0) {
+    //     console.log(this.inputImgProduto, this.editImgProduto);
+    //     this.inputImgProduto.nativeElement.src = this.criacaoProduto.imagem;
+    //   }
+    // }
   }
 
 
@@ -56,29 +70,112 @@ export class PaginaAdminComponent implements OnInit {
     this.criacaoProduto.nome = this.inputNomeProduto.nativeElement.value;
     this.criacaoProduto.descricao = this.inputDescricaoProduto.nativeElement.value;
     this.criacaoProduto.preco = Number.parseFloat(this.inputPrecoProduto.nativeElement.value);
+    this.criacaoProduto.imagem = this.srcImgCriar;
     if (Number.isNaN(this.criacaoProduto.preco)) {
       this.criacaoProduto.preco = 0.0;
     }
-
-    this.produtoService.criar(this.criacaoProduto).subscribe();
+    console.log(this.criacaoProduto);
+    // this.produtoService.criar(this.criacaoProduto).subscribe();
   }
   @ViewChild("inputPesquisaEditarProduto") inputPesquisaEditarProduto!: ElementRef<HTMLInputElement>;
   produtosEditar!: Produto[];
   pesquisarProdutos(pesquisa: string | MouseEvent) {
-    let pesquisaTexto = "";
     if (typeof pesquisa == "string") {
-      pesquisaTexto = pesquisa;
+      this.pesquisaProdutos = pesquisa;
     } else {
-      pesquisaTexto = this.inputPesquisaEditarProduto.nativeElement.value;
+      this.pesquisaProdutos = this.inputPesquisaEditarProduto.nativeElement.value;
     }
 
-    this.produtoService.adquirirTodos(pesquisaTexto).subscribe(res => {
+    this.produtoService.adquirirTodos(this.pesquisaProdutos).subscribe(res => {
       this.produtosEditar = res;
     })
   }
 
+  @ViewChild("editNomeProduto") inputEditNomeProduto!: ElementRef<HTMLInputElement>;
+  @ViewChild("editDescricaoProduto") inputEditDescricaoProduto!: ElementRef<HTMLInputElement>;
+  @ViewChild("editPrecoProduto") inputEditPrecoProduto!: ElementRef<HTMLInputElement>;
+  @ViewChild("editImgProduto") inputEditImgProduto!: ElementRef<HTMLInputElement>;
+
+  @ViewChild("editPreviewImgProduto") editImgProduto: ElementRef<HTMLImageElement> | undefined;
+
   selecionarProdutoEditar(produto: Produto) {
-    this.edicaoProduto = produto;
-    console.log(this.edicaoProduto);
+    this.edicaoProduto = {...produto};
+    this.edicaoProdutoInicial = {...produto};
+    if (!this.edicaoProduto.imagem) {
+      this.edicaoProduto.imagem = "";
+    }
+    this.adquirirImagemEdit(this.edicaoProduto.imagem);
+
+  }
+
+  deselecionarProduto() {
+    this.edicaoProduto = undefined;
+    this.edicaoProdutoInicial = undefined;
+  }
+
+  adquirirImagemEdit(img: FocusEvent | string) {
+    let valorImg = "";
+    if (typeof img === "string") {
+      valorImg = img;
+    } else {
+      valorImg = (img.target as HTMLInputElement).value;
+    }
+    this.srcImgEdit = valorImg;
+    // if (this.selecao === Controle.EditarProduto && this.edicaoProduto) {
+    //   this.edicaoProduto.imagem = valorImg;
+    //   if (this.editImgProduto && this.edicaoProduto.imagem && this.edicaoProduto.imagem.length !== 0) {
+    //     this.editImgProduto.nativeElement.src = this.criacaoProduto.imagem;
+    //   }
+    // }
+    console.log(this.editImgProduto);
+
+  }
+
+  @ViewChild("editNomeProduto")
+  set observar(tabEdit: ElementRef) {
+    if (tabEdit && this.edicaoProduto) {
+      this.inputEditNomeProduto.nativeElement.value = this.edicaoProduto.nome;
+      this.inputEditDescricaoProduto.nativeElement.value = this.edicaoProduto.descricao;
+      this.inputEditPrecoProduto.nativeElement.value = this.edicaoProduto.preco.toFixed(2);
+      if (this.inputEditImgProduto) {
+        this.inputEditImgProduto.nativeElement.value = this.edicaoProduto.imagem;
+      }
+    }
+  }
+
+  resetarEdicao() {
+    if (this.edicaoProdutoInicial) {
+      this.edicaoProduto = {...this.edicaoProdutoInicial};
+    }
+  }
+
+  editarProduto() {
+    if (this.edicaoProduto) {
+      this.edicaoProduto.nome = this.inputEditNomeProduto.nativeElement.value;
+      this.edicaoProduto.descricao = this.inputEditDescricaoProduto.nativeElement.value;
+      this.edicaoProduto.imagem = this.srcImgEdit;
+      this.edicaoProduto.preco = Number.parseFloat(this.inputEditPrecoProduto.nativeElement.value);
+      if (Number.isNaN(this.edicaoProduto.preco) && this.edicaoProdutoInicial) {
+        this.edicaoProduto.preco = this.edicaoProdutoInicial.preco;
+      }
+      this.produtoService.editar(this.edicaoProduto).subscribe(res => {
+        if (eErroResposta(res)) {
+          // TODO: Mostrar caixinha de erro
+          return;
+        }
+        this.edicaoProduto = undefined;
+        this.edicaoProdutoInicial = undefined;
+        this.pesquisarProdutos(this.pesquisaProdutos);
+      });
+    }
+  }
+  removerProduto(produto: Produto) {
+    this.produtoService.remover(produto).subscribe(res => {
+      if (eErroResposta(res)) {
+        // TODO: Mostrar caixinha de erro
+        return;
+      }
+      this.pesquisarProdutos(this.pesquisaProdutos);
+    }) ;
   }
 }

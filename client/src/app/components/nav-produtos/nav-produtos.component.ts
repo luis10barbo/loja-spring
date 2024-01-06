@@ -13,6 +13,9 @@ export class NavProdutosComponent {
   @Input()
   cliqueCustomizado: boolean = false;
 
+  @Input()
+  cliquePerigoso: boolean = false;
+
   @Output()
   aoClicar = new EventEmitter<Produto>();
 

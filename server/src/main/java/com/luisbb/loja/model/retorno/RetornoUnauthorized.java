@@ -19,6 +19,6 @@ public class RetornoUnauthorized extends RetornoErro implements Serializable {
 
     @Override
     public int codigoStatus() {
-        return 403;
+        return 401;
     }
 }
