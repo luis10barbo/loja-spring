@@ -42,10 +42,15 @@ main {
     display:flex;
     width: 100%;
     justify-content: space-between;
+    gap:25px;
 }
 
 #descricao-produto {
     font-size: 20px;
+}
+
+#preco-produto {
+  color: p.$cor-confirmar;
 }
 
 #info-principal-footer {

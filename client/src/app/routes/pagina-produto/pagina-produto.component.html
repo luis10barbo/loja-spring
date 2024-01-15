@@ -7,10 +7,10 @@
         <div id="info-principal" >
             <header id="info-principal-header">
                 <p id="titulo-produto">{{produto.nome}}</p>
-                <p id="preco-produto">R$ {{produto.preco}}</p>
+                <p id="preco-produto">R${{produto.preco}}</p>
             </header>
             <p id="descricao-produto">{{produto.descricao}}</p>
-            
+
             <footer id="info-principal-footer">
                 <button *ngIf="!estaEmCarrinho" (click)="adicionarProdutoCarrinho()">Adicionar ao Carrinho</button>
                 <button class="perigo" *ngIf="estaEmCarrinho" (click)="removerProdutoCarrinho()">Remover do Carrinho</button>
