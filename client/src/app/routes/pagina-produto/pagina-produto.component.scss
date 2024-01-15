@@ -1,4 +1,5 @@
 @use "../../../styles.scss" as p;
+@use "../../app.component.scss" as g;
 main {
     display:flex;
     flex-direction: column;
@@ -15,7 +16,8 @@ main {
 
 
 .card-imagem {
-    border: 1px solid p.$cor-outline;
+    // border: 1px solid p.$cor-outline;
+    background-color: g.$cor-principal-escura;
     width: 650px;
     aspect-ratio: 1;
     border-radius: 20px;
