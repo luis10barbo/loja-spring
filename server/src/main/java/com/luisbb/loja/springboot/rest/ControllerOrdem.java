@@ -108,8 +108,22 @@ public class ControllerOrdem {
             return new RetornoNotFound(resposta, "Nenhuma ordem encontrada");
         }
         Set<Ordem> ordens = optOrdens.get();
-        
+
+        checarEFinalizarOrdensViaMomentoEsperado(ordens);
+
+
         return new RetornoSucesso(resposta, ordens);
+    }
+
+    void checarEFinalizarOrdensViaMomentoEsperado(Set<Ordem> ordens) {
+        for (Ordem ordem: ordens) {
+            if (ordem.getMomentoEsperadoFinalizada().getTime() < new Date().getTime()) {
+                // TODO: implementar outra logica de finalizacao
+                // Passou do momento esperado finalizacao
+                ordem.setMomentoFinalizada(ordem.getMomentoEsperadoFinalizada());
+                repositorioOrdem.save(ordem);
+            }
+        }
     }
 
     @PostMapping("/finalizar")
