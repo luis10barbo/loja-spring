@@ -12,6 +12,9 @@ $cor-perigo: #FF3D00;
 $cor-perigo-high: #ff6a3d;
 $cor-em-perigo: #FFFFFF;
 $cor-confirmar: #00BE1E;
+$cor-secundaria: #F1F1F1;
+$cor-principal-escura: #FAFAFA;
+$arredondamento-p: 5px;
 
 
 $tempo-transicao: 75ms;
@@ -38,7 +41,7 @@ app-root > * {
     display: flex;
     flex-direction: column;
     height: 100%;
-} 
+}
 
 *, *::after, *::before {
     box-sizing: border-box;

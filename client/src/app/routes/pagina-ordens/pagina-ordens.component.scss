@@ -7,16 +7,21 @@
     gap: 10px;
     padding: 20px;
 
-    border: 1px solid g.$cor-outline;
+    // border: 1px solid g.$cor-outline;
+    background-color: g.$cor-principal-escura;
     border-radius: 10px;
-    width: fit-content;
-    
+    width: 100%;
+
+    min-width: 600px;
+
 }
 
 main {
     display:flex;
-    flex-wrap: wrap;
-    
+    flex-direction: column;
+    align-items: center;
+    // flex-wrap: wrap;
+
     padding:40px;
     gap: 20px;
 }
@@ -29,7 +34,9 @@ main {
     background-color: g.$cor-complementar;
     padding: 10px;
     border-radius: 10px;
-    width: fit-content;
+    // width: fit-content;
+
+    width: 100%;
 }
 .info-produto {
 
