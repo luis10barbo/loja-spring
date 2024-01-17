@@ -1,14 +1,17 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Produto } from 'src/app/models/produto';
+import { Transportadora } from 'src/app/models/transportadora';
 import { ServicoProduto } from 'src/app/services/servico-produto.service';
+import { TransportadoraService } from 'src/app/services/transportadora/transportadora.service';
 import { eErroResposta } from 'src/app/utils/resposta';
 
 
 const Controle = {
   CriarProduto: "CriarProduto",
   EditarProduto: "EditarProduto",
-  RemoverProduto: "RemoverProduto"
+  RemoverProduto: "RemoverProduto",
+  CriarFrete: "CriarFrete"
 } as const;
 
 @Component({
@@ -36,7 +39,7 @@ export class PaginaAdminComponent implements OnInit {
 
   pesquisaProdutos:string = "";
 
-  constructor(private produtoService: ServicoProduto, private router: Router) {}
+  constructor(private produtoService: ServicoProduto, private router: Router, private transportadoraService: TransportadoraService) {}
   ngOnInit(): void {
     this.pesquisarProdutos("");
   }
@@ -177,5 +180,42 @@ export class PaginaAdminComponent implements OnInit {
       }
       this.pesquisarProdutos(this.pesquisaProdutos);
     }) ;
+  }
+
+  novoFrete: Transportadora = {
+    nome: "",
+    prazoHoras: 24,
+    valorFrete: 0.0,
+    ordens: []
+  }
+
+  @ViewChild("nomeFrete")
+  inputNomeFrete!: ElementRef<HTMLInputElement>;
+
+  @ViewChild("prazoHorasFrete")
+  inputPrazoHoraFrete!: ElementRef<HTMLInputElement>;
+
+  @ViewChild("valorFrete")
+  inputValorFrete!: ElementRef<HTMLInputElement>;
+
+  criarFrete() {
+
+    this.novoFrete.nome = this.inputNomeFrete.nativeElement.value;
+
+    const prazoNovo = parseInt(this.inputPrazoHoraFrete.nativeElement.value);
+    if (Number.isNaN(prazoNovo)) {
+      return;
+    }
+    this.novoFrete.prazoHoras = prazoNovo;
+
+
+    const valorNovo = parseFloat(this.inputValorFrete.nativeElement.value);
+    if (Number.isNaN(valorNovo)) {
+      return;
+    }
+    this.novoFrete.valorFrete = valorNovo;
+
+    console.log(this.novoFrete);
+    this.transportadoraService.criar(this.novoFrete).subscribe();
   }
 }

@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { RespostaErro } from 'src/app/models/respostaErro';
+import { RespostaSucesso } from 'src/app/models/respostaSucesso';
 import { Transportadora } from 'src/app/models/transportadora';
 import { enviroment } from 'src/environment/environment';
 
@@ -14,4 +16,7 @@ export class TransportadoraService {
     return this.httpClient.get<Transportadora[]>(this.url + "/todas");
   }
 
+  criar(transportadora: Transportadora) {
+    return this.httpClient.post<RespostaSucesso<Transportadora> | RespostaErro>(this.url + "/", transportadora, {withCredentials: true});
+  }
 }

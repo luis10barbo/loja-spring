@@ -5,6 +5,8 @@
     <button (click)="mudarControle(Controle.CriarProduto)">Criar Produto</button>
     <button (click)="mudarControle(Controle.EditarProduto)">Editar Produto</button>
     <button (click)="mudarControle(Controle.RemoverProduto)">Remover Produto</button>
+    <button (click)="mudarControle(Controle.CriarFrete)">Criar Frete</button>
+
   </div>
   <div class="controle">
     <div *ngIf="selecao === Controle.CriarProduto" class="controle-selecao">
@@ -60,6 +62,20 @@
       <input placeholder="Pesquise um produto" [value]="pesquisaProdutos" #inputPesquisaEditarProduto>
       <button (click)="pesquisarProdutos($event)">Pesquisar</button>
       <nav-produtos [produtos]="produtosEditar" (aoClicar)="removerProduto($event)" [cliqueCustomizado]="true" tamanho="P" textoClique="Remover" [cliquePerigoso]="true"></nav-produtos>
+    </div>
+    <div *ngIf="selecao === Controle.CriarFrete" class="controle-selecao">
+      <h2>Criar Frete</h2>
+      <label>Nome Frete</label>
+      <input placeholder="Nome" #nomeFrete>
+
+      <label>Prazo em Horas</label>
+      <input placeholder="Prazo em Horas" #prazoHorasFrete>
+
+      <label>Valor Frete</label>
+      <input placeholder="Valor Produto" #valorFrete>
+
+      <button class="neutro" (click)="criarFrete()">Criar Frete</button>
+
     </div>
   </div>
 </main>
