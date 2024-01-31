@@ -55,4 +55,12 @@ export class PaginaOrdensComponent implements OnInit {
       }
     });
   }
+
+  finalizarOrdem(ordem: Ordem) {
+    this.ordemService.finalizarOrdem(ordem.id).subscribe(res => {
+      if (res) {
+        this.adquirirOrdens();
+      }
+    })
+  }
 }

@@ -19,7 +19,6 @@
 main {
     display:flex;
     flex-direction: column;
-    align-items: center;
     // flex-wrap: wrap;
 
     padding:40px;
@@ -66,4 +65,9 @@ main {
 
 .resumo-total {
     font-weight: 600;
+}
+
+.botao-holder {
+  display: flex;
+  gap: 10px;
 }

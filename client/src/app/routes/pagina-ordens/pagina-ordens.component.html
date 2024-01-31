@@ -1,5 +1,8 @@
 <painel-header></painel-header>
 <main>
+  <div class="checkbox-holder">
+    <input type="checkbox" [checked]="true"><label>Mostrar ordens finalizadas</label>
+  </div>
     <div class="ordem" *ngFor="let ordem of ordens; index as i;">
         <p class="ordem-titulo">Ordem #{{ ordem.id }}</p>
         <div *ngFor="let produtoOrdem of ordem.produtosOrdem" class="produto-ordem">
@@ -18,7 +21,10 @@
 
         <p  class="ordem-data" >Criada em {{ extraOrdens.get(ordem.id)?.data?.toLocaleString() }}</p>
         <p  class="ordem-data-finalizada" *ngIf="ordem.momentoFinalizada">Finalizada em {{ extraOrdens.get(ordem.id)?.dataFinalizada?.toLocaleString() }}</p>
-        <button class="botao-cancelar perigo" *ngIf="!ordem.momentoFinalizada && !ordem.cancelada" (click)="cancelarOrdem(ordem)">Cancelar</button>
+        <div class="botao-holder">
+          <button class="botao-finalizar" *ngIf="!ordem.momentoFinalizada && !ordem.cancelada" (click)="finalizarOrdem(ordem)">Já recebi o produto</button>
+          <button class="botao-cancelar perigo" *ngIf="!ordem.momentoFinalizada && !ordem.cancelada" (click)="cancelarOrdem(ordem)">Cancelar</button>
+        </div>
         <p  class="ordem-cancelada" *ngIf="!ordem.momentoFinalizada && ordem.cancelada" >Ordem Cancelada</p>
 
 
